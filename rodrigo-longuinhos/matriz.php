@@ -32,6 +32,8 @@ rodrigoassisnz@hotmail.com
 
 */
 
+// A aplicação busca na querystring "ordem" seu valor para construir a matriz quadrada
+
 if (isset($_GET["ordem"]) && count($_GET) > 0 ) {
     
     $ordem = $_GET["ordem"]; //ordem da matriz quadrada
