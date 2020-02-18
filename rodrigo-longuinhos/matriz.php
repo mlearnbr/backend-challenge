@@ -105,6 +105,5 @@ if (isset($_GET["ordem"]) && count($_GET) > 0 ) {
     echo 'Informe na querystring "ordem" da url o valor da ordem da matrix quadrada.<br>';
     echo '<br><i>Exemplo: ../matriz.php?ordem=3</i><br>';
     echo '<br><a href="matriz.php?ordem=3">clique aqui para um exemplo de ordem 3</a>';
-}
-   
+}   
 ?>
