@@ -12,12 +12,14 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return redirect(route('get.users'));
+})->name('home');
 
 Route::group(['namespace' => 'User'], function(){
     Route::get('/users', 'UserController@getUsers')->name('get.users');
     Route::get('/user/register', 'UserController@registerUser')->name('reg.user');
     Route::post('/user/create', 'UserController@createUser')->name('create.user');
+    Route::get('/user/upgrade/{id}', 'UserController@upgradeUser')->name('upgrade.user');
+    Route::get('/user/downgrade/{id}', 'UserController@downgradeUser')->name('downgrade.user');
 });
 

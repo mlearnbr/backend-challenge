@@ -1,8 +1,10 @@
 @extends('layout.app')
 @section('content')
 
-<div class="container" style="margin-top: 1%;">
-    <form method="POST" action="{{route('create.user')}}">
+<div class="container h-100" style="margin-top: 1%;">
+  <div class="row">
+    <div class="col-sm-12">
+      <form method="POST" action="{{route('create.user')}}">
         @csrf
         <div class="form-group">
             <label for="name">Name</label>
@@ -21,7 +23,11 @@
             </select>
 
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Cadastrar</button>
       </form>
+    </div>
+
+  </div>
+    
 </div>
 @endsection

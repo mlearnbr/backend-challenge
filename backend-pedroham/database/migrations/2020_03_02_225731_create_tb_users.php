@@ -18,6 +18,7 @@ class CreateTbUsers extends Migration
             $table->string('name', 40);
             $table->string('msisdn', 14);
             $table->string('access_level', 8);
+            $table->string('id_mlearn')->default('');
             $table->timestamps();
         });
     }

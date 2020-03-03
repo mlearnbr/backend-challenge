@@ -21,8 +21,8 @@
             <td>{{$user->msisdn}}</td>
             <td>{{$user->access_level}}</td>
             <td> 
-                <a class="btn btn-primary btn-sm" href=""><i class="fas fa-angle-up"></i> Upgrade</a>
-                <a class="btn btn-danger btn-sm" href=""><i class="fas fa-angle-down"></i> Downgrade</a>
+                <a class="btn btn-primary btn-sm" href="{{route('upgrade.user', $user->id)}}"><i class="fas fa-angle-up"></i> Upgrade</a>
+                <a class="btn btn-danger btn-sm" href="{{route('downgrade.user', $user->id)}}"><i class="fas fa-angle-down"></i> Downgrade</a>
             </td>
           </tr>
         @endforeach
