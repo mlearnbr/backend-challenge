@@ -9,6 +9,7 @@
 4. Copie o arquivo .env.example com o seguinte comando: **cp .env.example .env**
 5. Crie uma nova chave para a aplicação com o comando:  **php artisan key:generate**
 6.  Crie as tabelas com o seguinte comando: ** php artisan migrate**
+7.  Inicie a aplicação com o comando: ** php artisan serve**
 
 - Disponível para as linguagens **Português** e **Inglês** através do Middleware **LocazationLanguage** criado para esta função. Os arquivos de tradução que se encontram na pasta resource/lang.
 
