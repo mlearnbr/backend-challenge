@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/users');
 });
 
 Route::get('/users', 'UsersController@listUsers');
