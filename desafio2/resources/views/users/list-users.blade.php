@@ -8,7 +8,8 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th scope="col">id</th>
+                        <th scope="col">ID</th>
+                        <th scope="col">ID Externo</th>
                         <th scope="col">Nome</th>
                         <th scope="col">Telefone</th>
                         <th scope="col">Nivel de acesso</th>
@@ -19,6 +20,7 @@
                     @foreach ($users as $user)
                         <tr>
                             <th scope="row">{{$user->id}}</th>
+                            <td>{{$user->external_id}}</td>
                             <td>{{$user->name}}</td>
                             <td>{{$user->msisdn}}</td>
                             <td>{{$user->access_level}}</td>
