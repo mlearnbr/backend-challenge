@@ -1,8 +1,33 @@
 # Desafio back-end da mLearn
 
-Esse repositório é o nosso desafio para avaliar o quão bom desenvolvedor back-end você é.
+## configuração
 
-Provavelmente você já está participando do nosso processo seletivo, mas se você caiu aqui por acaso, leia o documento até o final e caso haja interesse, você pode começar daqui mesmo.
+rodar o comando `php artisan key:generate`
+
+Criar banco de dados
+
+Setar as informações de acesso ao banco de dados e dos headers da api .env.example
+
+Alterar o nome do arquivo .env.example para .env
+
+rodar o comando `php artisan migrate` para gerar as tabelas necessarias
+
+rodar o comando `composer install`
+
+rodar o comando `php artisan key:generate`
+
+Para testar a aplicação basta rodar o comando `php artisan serve`
+
+## requisitos do servidor:
+
+* PHP >= 7.1.3
+* OpenSSL PHP Extension
+* PDO PHP Extension
+* Mbstring PHP Extension
+* Tokenizer PHP Extension
+* XML PHP Extension
+* Ctype PHP Extension
+* JSON PHP Extension
 
 
 ## Sobre o desafio
