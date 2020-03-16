@@ -19,3 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::post('/createuser', 'UsersController@createUser');
+
+Route::get('/upgradeuser/{id}', 'UsersController@upgradeUser');
+
+Route::get('/downgradeuser/{id}', 'UsersController@downgradeUser');

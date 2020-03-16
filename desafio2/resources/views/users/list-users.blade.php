@@ -25,8 +25,8 @@
                             <td>{{$user->msisdn}}</td>
                             <td>{{$user->access_level}}</td>
                             <td class="text-center">
-                                <button type="button" class="btn btn-outline-success">Upgrade</button>
-                                <button type="button" class="btn btn-outline-danger">Downgrade</button>
+                                <a type="button" href="/api/upgradeuser/{{$user->external_id}}" class="btn btn-outline-success">Upgrade</a>
+                                <a type="button" href="/api/downgradeuser/{{$user->external_id}}" class="btn btn-outline-danger">Downgrade</a>
                             </td>
                         </tr>
                     @endforeach

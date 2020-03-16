@@ -42,7 +42,7 @@ class APIServiceProvider extends ServiceProvider
 
     public function createUser( $user ){
         try{
-            $res = $this->client->request('POST', '/integrator/qualifica/users',[
+            $res = $this->client->request('POST', '/integrator/'. env("SERVICE_ID") .'/users',[
                 'form_params' => [
                     'name' => $user->name,
                     'msisdn' => $user->msisdn,
@@ -52,6 +52,24 @@ class APIServiceProvider extends ServiceProvider
                 ]
             ]);
             return ($res->getBody());
+        }catch (Exception $e){
+            return($e);
+        }
+    }
+
+    function upgradeUser($id){
+        try{
+            $res = $this->client->request('PUT', '/integrator/'. env("SERVICE_ID") .'/users/'. $id .'/upgrade');
+            return $res->getBody();
+        }catch (Exception $e){
+            return($e);
+        }
+    }
+    
+    function downgradeUser($id){
+        try{
+            $res = $this->client->request('PUT', '/integrator/'. env("SERVICE_ID") .'/users/'. $id .'/downgrade');
+            return $res->getBody();
         }catch (Exception $e){
             return($e);
         }

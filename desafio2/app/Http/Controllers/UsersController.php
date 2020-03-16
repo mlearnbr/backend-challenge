@@ -37,4 +37,28 @@ class UsersController extends Controller
         return redirect('/users');
     }
 
+    function upgradeUser($id){
+        // Envia a requisição para alterar o usuario
+        $api = new APIServiceProvider;
+        $altereddUser = json_decode($api->upgradeUser($id),true);
+        // Salva aalteração no banco local
+        $user = User::where('external_id' , '=', $id)->first();
+        if($user)
+            $user->fill($altereddUser['data'])->save();
+
+        return redirect('/users');
+    }
+
+    function downgradeUser($id){
+        // Envia a requisição para alterar o usuario
+        $api = new APIServiceProvider;
+        $altereddUser = json_decode($api->downgradeUser($id),true);
+        // Salva aalteração no banco local
+        $user = User::where('external_id' , '=', $id)->first();
+        if($user)
+            $user->fill($altereddUser['data'])->save();
+
+        return redirect('/users');
+    }
+
 }
