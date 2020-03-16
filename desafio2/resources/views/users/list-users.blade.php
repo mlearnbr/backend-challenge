@@ -16,16 +16,18 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                    <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td class="text-center">
-                            <button type="button" class="btn btn-outline-success">Upgrade</button>
-                            <button type="button" class="btn btn-outline-danger">Downgrade</button>
-                        </td>
-                    </tr>
+                    @foreach ($users as $user)
+                        <tr>
+                            <th scope="row">{{$user->id}}</th>
+                            <td>{{$user->name}}</td>
+                            <td>{{$user->msisdn}}</td>
+                            <td>{{$user->access_level}}</td>
+                            <td class="text-center">
+                                <button type="button" class="btn btn-outline-success">Upgrade</button>
+                                <button type="button" class="btn btn-outline-danger">Downgrade</button>
+                            </td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>

@@ -1,13 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Illuminate\Http\Request;
+use App\User;
 
 class UsersController extends Controller
 {
     function listUsers(){
-        return view('users/list-users');
+        $users = User::all();
+        return view('users/list-users')->with('users', $users);;
     }
 
     function newUser(){
@@ -15,6 +17,13 @@ class UsersController extends Controller
     }
 
     function createUser( Request $request ){
-        dd($request->all());
+        $request->validate([
+            'name' => 'required',
+            'msisdn' => 'required',
+            'access_level'  => 'required'
+        ]);
+
+        User::create($request->all());
+        return redirect('/users');
     }
 }
