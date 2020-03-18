@@ -1,6 +1,9 @@
 # Lista de tarefas
+
 Itens a serem realizados para a conclusão dos desafios
+
 ## Challenge 01
+
 - [x] Criar uma Suíte de testes
 - [x] Criar função de testes
 - [x] Criar função de cálculos
@@ -9,4 +12,11 @@ Itens a serem realizados para a conclusão dos desafios
 - [x] Criar documentação para execução
 
 ## Challenge 02
-- [ ] Teste 
+
+- [x] Criar Base laravel
+- [x] Configurar com Banco de dados Local
+- [ ] Instalar Base Vue+Vuetify
+- [ ] Criar Testes
+- [ ] Desenvolver funções de cadastro
+- [ ] Criar UI
+- [ ] Criar documentação
