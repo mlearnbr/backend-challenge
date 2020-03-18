@@ -15,8 +15,8 @@ Itens a serem realizados para a conclusão dos desafios
 
 - [x] Criar Base laravel
 - [x] Configurar com Banco de dados Local
-- [ ] Instalar Base Vue+Vuetify
-- [ ] Criar Testes
+- [x] Instalar Base Vue+Vuetify
+- [x] Criar Testes
 - [ ] Desenvolver funções de cadastro
 - [ ] Criar UI
 - [ ] Criar documentação
