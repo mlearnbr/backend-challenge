@@ -19,5 +19,5 @@ Itens a serem realizados para a conclusão dos desafios
 - [x] Criar Testes
 - [x] Desenvolver funções de cadastro
 - [x] Criar UI
-- [ ] Fazer integração com mLearn
+- [x] Fazer integração com mLearn
 - [ ] Criar documentação

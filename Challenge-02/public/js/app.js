@@ -302,7 +302,6 @@ __webpack_require__.r(__webpack_exports__);
           self.newUser.cellphone = "";
           self.newUser.password = "";
           self.dialog = false;
-          dialogdialog;
           self.loadAllUsers();
         }
       });

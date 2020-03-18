@@ -195,7 +195,6 @@ export default {
                     self.newUser.cellphone = "";
                     self.newUser.password = "";
                     self.dialog = false;
-                    dialogdialog;
                     self.loadAllUsers();
                 }
             });

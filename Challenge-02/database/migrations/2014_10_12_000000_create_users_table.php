@@ -15,6 +15,7 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->string('mlearn_id')->nullable();
             $table->string('msisdn')->unique();
             $table->string('name');
             $table->string('access_level')->default("free");

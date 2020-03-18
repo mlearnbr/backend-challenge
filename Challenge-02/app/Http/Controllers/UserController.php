@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\CreateUserMLearn;
+use App\Jobs\DowngradeUserMLearn;
+use App\Jobs\UpgradeUserMLearn;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Ixudra\Curl\Facades\Curl;
 
 class UserController extends Controller
 {
@@ -22,8 +26,10 @@ class UserController extends Controller
             $user = new User;
             $user['msisdn'] = $request->cellphone;
             $user['name'] = $request->name;
+            $user['access_level'] = "free";
             $user['password'] = $request->password;
             $success = $user->save();
+            CreateUserMLearn::dispatchNow($user);
 
             if ($success) {
                 $responseItens['response'] = ['status' => true];
@@ -55,6 +61,7 @@ class UserController extends Controller
             if (isset($user->id)) {
                 $user['access_level'] = 'premium';
                 $success = $user->save();
+                UpgradeUserMLearn::dispatchNow($user);
 
                 if ($success) {
                     $responseItens['response'] = ['status' => true];
@@ -75,6 +82,7 @@ class UserController extends Controller
             if (isset($user->id)) {
                 $user['access_level'] = 'free';
                 $success = $user->save();
+                DowngradeUserMLearn::dispatchNow($user);
 
                 if ($success) {
                     $responseItens['response'] = ['status' => true];
