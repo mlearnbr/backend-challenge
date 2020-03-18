@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desafio 01</title>
+    <style>
+    .matrix {
+        margin: 0;
+    }
+    .success {
+        color: green;
+    }
+    .fail {
+        color: red;
+    }
+    .warning {
+        color: orange;
+    }
+    </style>
+</head>
+<body>
+    <h2>Desafio 01</h2>
+    <h3>Modo Manual</h3>
+    <p>Insira uma matriz na área abaixo e aperte o botão para calcular</p>
+    <textarea name="textMatrix" id="textMatrix" cols="15" rows="5">
+1,2,3
+2,4,5
+6,7,8</textarea>
+    <p id="TextResult">&nbsp;</p>
+    <button onclick="makeCalc()">Calcular</button>
+    <br>
+    <br>
+    <hr>
+    <h3>Testes Automáticos</h3>
+    <p>Executar a suíte de testes automátizados.</p>
+    <button onclick="executeTestSuite()">Executar</button>
+    <br>
+    <div id="SuiteResults">
+    </div>
+</body>
+<script src="assets/test_suite.js"></script>
+<script src="assets/functions.js"></script>
+<script src="assets/ui.js"></script>
+</html>
