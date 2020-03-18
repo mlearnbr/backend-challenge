@@ -8,16 +8,15 @@ use App\Jobs\UpgradeUserMLearn;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Ixudra\Curl\Facades\Curl;
 
 class UserController extends Controller
 {
-    //
-
+    // Função de Criação de Novos usuários
     public function createUser(Request $request)
     {
         $responseItens = ['response' => ['status' => false], 'code' => 400];
 
+        //Verifica se a requisição contém todos os itens
         if (
             isset($request->cellphone) &&
             isset($request->name) &&
@@ -29,6 +28,9 @@ class UserController extends Controller
             $user['access_level'] = "free";
             $user['password'] = $request->password;
             $success = $user->save();
+
+            //Chama o Job de criação do usuário na mLearn
+            // Utilizado dispatchNow para não precisar configurar a queue
             CreateUserMLearn::dispatchNow($user);
 
             if ($success) {
@@ -40,6 +42,7 @@ class UserController extends Controller
         return response()->json($responseItens['response'], $responseItens['code']);
     }
 
+    // Função de Listagem de usuários
     public function listUsers()
     {
         $users = DB::table('users')
@@ -52,6 +55,7 @@ class UserController extends Controller
         return response()->json($users);
     }
 
+    // Função de upgrade usuários
     public function upgradeUser(Request $request)
     {
         $responseItens = ['response' => ['status' => false], 'code' => 400];
@@ -61,6 +65,9 @@ class UserController extends Controller
             if (isset($user->id)) {
                 $user['access_level'] = 'premium';
                 $success = $user->save();
+
+                //Chama o Job de criação do usuário na mLearn
+                // Utilizado dispatchNow para não precisar configurar a queue
                 UpgradeUserMLearn::dispatchNow($user);
 
                 if ($success) {
@@ -73,6 +80,8 @@ class UserController extends Controller
         return response()->json($responseItens['response'], $responseItens['code']);
     }
 
+
+    // Função de downgrade usuários
     public function downgradeUser(Request $request)
     {
         $responseItens = ['response' => ['status' => false], 'code' => 400];
@@ -82,6 +91,9 @@ class UserController extends Controller
             if (isset($user->id)) {
                 $user['access_level'] = 'free';
                 $success = $user->save();
+
+                //Chama o Job de criação do usuário na mLearn
+                // Utilizado dispatchNow para não precisar configurar a queue
                 DowngradeUserMLearn::dispatchNow($user);
 
                 if ($success) {

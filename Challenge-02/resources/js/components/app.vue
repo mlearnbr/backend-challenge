@@ -93,6 +93,9 @@
                                                                         v-model="
                                                                             newUser.cellphone
                                                                         "
+                                                                        v-mask="
+                                                                            '+55 (##) #####-####'
+                                                                        "
                                                                         label="Telefone"
                                                                         required
                                                                     ></v-text-field>
@@ -142,6 +145,9 @@
                                             </v-dialog>
                                         </v-toolbar>
                                     </template>
+                                    <template v-slot:item.cellphone="{ item }">
+                                        {{ formatCellPhone(item.cellphone) }}
+                                    </template>
                                     <template v-slot:item.actions="{ item }">
                                         <v-icon
                                             v-if="item.level == 'free'"
@@ -169,7 +175,9 @@
 </template>
 
 <script>
+import { mask } from "vue-the-mask";
 export default {
+    directives: { mask },
     data: () => ({
         dialog: false,
         newUser: {
@@ -189,6 +197,10 @@ export default {
     methods: {
         createUser: function() {
             let self = this;
+            this.newUser.cellphone = this.newUser.cellphone.replace(
+                /(\s)|(-)|(\()|(\))/g,
+                ""
+            );
             $.post("/user", this.newUser, function(data) {
                 if (data.status === true) {
                     self.newUser.name = "";
@@ -216,6 +228,25 @@ export default {
                     self.loadAllUsers();
                 }
             });
+        },
+        formatCellPhone: function(phone) {
+            let regex = phone.match(/^(\+\d{2})(\d{2})(\d{1})(\d{4})(\d{4})$/);
+
+            if (regex) {
+                return (
+                    regex[1] +
+                    " (" +
+                    regex[2] +
+                    ") " +
+                    regex[3] +
+                    " " +
+                    regex[4] +
+                    "-" +
+                    regex[5]
+                );
+            }
+
+            return null;
         }
     },
     mounted: function() {
