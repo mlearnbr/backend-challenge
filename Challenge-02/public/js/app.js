@@ -108,9 +108,228 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
-    return {};
+    return {
+      dialog: false,
+      newUser: {
+        name: "",
+        cellphone: "",
+        password: ""
+      },
+      headers: [{
+        text: "Nome",
+        sortable: true,
+        value: "name"
+      }, {
+        text: "Celular",
+        value: "cellphone"
+      }, {
+        text: "Level",
+        value: "level",
+        sortable: true
+      }, {
+        text: "Opções",
+        value: "actions"
+      }],
+      users: []
+    };
+  },
+  computed: {},
+  methods: {
+    createUser: function createUser() {
+      var self = this;
+      $.post("/user", this.newUser, function (data) {
+        if (data.status === true) {
+          self.newUser.name = "";
+          self.newUser.cellphone = "";
+          self.newUser.password = "";
+          self.dialog = false;
+          dialogdialog;
+          self.loadAllUsers();
+        }
+      });
+    },
+    loadAllUsers: function loadAllUsers() {
+      var self = this;
+      $.get("/user", function (data) {
+        self.users = data;
+      });
+    },
+    editUser: function editUser(id, type) {
+      var self = this;
+      var route = type == 1 ? "/user/upgrade" : "/user/downgrade";
+      $.ajax({
+        url: route,
+        type: "PUT",
+        data: {
+          id: id
+        },
+        success: function success(result) {
+          self.loadAllUsers();
+        }
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.loadAllUsers();
   }
 });
 
@@ -1262,16 +1481,484 @@ var render = function() {
       _c(
         "v-app-bar",
         { attrs: { app: "", "clipped-left": "", color: "amber" } },
-        [_c("span", { staticClass: "title ml-3 mr-5" }, [_vm._v("Desafio 02")])]
+        [
+          _c("span", { staticClass: "title ml-3 mr-5" }, [
+            _vm._v("Challenge 02 - Desafio de Aplicação")
+          ])
+        ]
       ),
       _vm._v(" "),
       _c(
         "v-content",
         [
-          _c("v-container", {
-            staticClass: "grey lighten-4 fill-height",
-            attrs: { fluid: "" }
-          })
+          _c(
+            "v-card",
+            { staticClass: "mx-auto" },
+            [
+              _c(
+                "v-card-title",
+                [
+                  _c("v-icon", { attrs: { large: "", left: "" } }, [
+                    _vm._v(
+                      "\n                    mdi-account-group\n                "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "title font-weight-light" }, [
+                    _vm._v("Usuários Cadastrados")
+                  ])
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("v-card-text", { staticClass: "subtitle py-0" }, [
+                _vm._v(
+                  "\n                Lista de todos os usuários do sistema\n            "
+                )
+              ]),
+              _vm._v(" "),
+              _c(
+                "v-card-actions",
+                { staticClass: "py-0" },
+                [
+                  _c(
+                    "v-container",
+                    [
+                      _c(
+                        "v-row",
+                        [
+                          _c(
+                            "v-col",
+                            { attrs: { cols: "12" } },
+                            [
+                              _c("v-data-table", {
+                                staticClass: "elevation-1",
+                                attrs: {
+                                  headers: _vm.headers,
+                                  items: _vm.users
+                                },
+                                scopedSlots: _vm._u([
+                                  {
+                                    key: "top",
+                                    fn: function() {
+                                      return [
+                                        _c(
+                                          "v-toolbar",
+                                          {
+                                            attrs: { flat: "", color: "white" }
+                                          },
+                                          [
+                                            _c("v-spacer"),
+                                            _vm._v(" "),
+                                            _c(
+                                              "v-dialog",
+                                              {
+                                                scopedSlots: _vm._u([
+                                                  {
+                                                    key: "activator",
+                                                    fn: function(ref) {
+                                                      var on = ref.on
+                                                      return [
+                                                        _c(
+                                                          "v-btn",
+                                                          _vm._g(
+                                                            {
+                                                              staticClass:
+                                                                "mb-2",
+                                                              attrs: {
+                                                                color:
+                                                                  "primary",
+                                                                dark: ""
+                                                              }
+                                                            },
+                                                            on
+                                                          ),
+                                                          [
+                                                            _c(
+                                                              "v-icon",
+                                                              {
+                                                                attrs: {
+                                                                  left: ""
+                                                                }
+                                                              },
+                                                              [
+                                                                _vm._v(
+                                                                  "mdi-account-arrow-right"
+                                                                )
+                                                              ]
+                                                            ),
+                                                            _vm._v(
+                                                              "\n                                                    Novo Usuário"
+                                                            )
+                                                          ],
+                                                          1
+                                                        )
+                                                      ]
+                                                    }
+                                                  }
+                                                ]),
+                                                model: {
+                                                  value: _vm.dialog,
+                                                  callback: function($$v) {
+                                                    _vm.dialog = $$v
+                                                  },
+                                                  expression: "dialog"
+                                                }
+                                              },
+                                              [
+                                                _vm._v(" "),
+                                                _c(
+                                                  "v-card",
+                                                  { staticClass: "mx-auto" },
+                                                  [
+                                                    _c(
+                                                      "v-card-title",
+                                                      [
+                                                        _c(
+                                                          "v-icon",
+                                                          {
+                                                            attrs: {
+                                                              large: "",
+                                                              left: ""
+                                                            }
+                                                          },
+                                                          [
+                                                            _vm._v(
+                                                              "\n                                                        mdi-account-arrow-right\n                                                    "
+                                                            )
+                                                          ]
+                                                        ),
+                                                        _vm._v(" "),
+                                                        _c(
+                                                          "span",
+                                                          {
+                                                            staticClass:
+                                                              "title font-weight-light"
+                                                          },
+                                                          [
+                                                            _vm._v(
+                                                              "Criar novo\n                                                        Usuário"
+                                                            )
+                                                          ]
+                                                        )
+                                                      ],
+                                                      1
+                                                    ),
+                                                    _vm._v(" "),
+                                                    _c(
+                                                      "v-card-text",
+                                                      {
+                                                        staticClass:
+                                                          "subtitle py-0"
+                                                      },
+                                                      [
+                                                        _vm._v(
+                                                          "\n                                                    Inserir um novo usuário\n                                                    no sistema\n                                                "
+                                                        )
+                                                      ]
+                                                    ),
+                                                    _vm._v(" "),
+                                                    _c(
+                                                      "v-card-actions",
+                                                      { staticClass: "py-0" },
+                                                      [
+                                                        _c(
+                                                          "v-container",
+                                                          {
+                                                            staticClass: "py-0"
+                                                          },
+                                                          [
+                                                            _c(
+                                                              "v-row",
+                                                              [
+                                                                _c(
+                                                                  "v-col",
+                                                                  {
+                                                                    staticClass:
+                                                                      "py-0",
+                                                                    attrs: {
+                                                                      cols: "4",
+                                                                      xs: "12"
+                                                                    }
+                                                                  },
+                                                                  [
+                                                                    _c(
+                                                                      "v-text-field",
+                                                                      {
+                                                                        attrs: {
+                                                                          label:
+                                                                            "Nome",
+                                                                          required:
+                                                                            ""
+                                                                        },
+                                                                        model: {
+                                                                          value:
+                                                                            _vm
+                                                                              .newUser
+                                                                              .name,
+                                                                          callback: function(
+                                                                            $$v
+                                                                          ) {
+                                                                            _vm.$set(
+                                                                              _vm.newUser,
+                                                                              "name",
+                                                                              $$v
+                                                                            )
+                                                                          },
+                                                                          expression:
+                                                                            "\n                                                                        newUser.name\n                                                                    "
+                                                                        }
+                                                                      }
+                                                                    )
+                                                                  ],
+                                                                  1
+                                                                ),
+                                                                _vm._v(" "),
+                                                                _c(
+                                                                  "v-col",
+                                                                  {
+                                                                    staticClass:
+                                                                      "py-0",
+                                                                    attrs: {
+                                                                      cols: "4",
+                                                                      xs: "12"
+                                                                    }
+                                                                  },
+                                                                  [
+                                                                    _c(
+                                                                      "v-text-field",
+                                                                      {
+                                                                        attrs: {
+                                                                          label:
+                                                                            "Telefone",
+                                                                          required:
+                                                                            ""
+                                                                        },
+                                                                        model: {
+                                                                          value:
+                                                                            _vm
+                                                                              .newUser
+                                                                              .cellphone,
+                                                                          callback: function(
+                                                                            $$v
+                                                                          ) {
+                                                                            _vm.$set(
+                                                                              _vm.newUser,
+                                                                              "cellphone",
+                                                                              $$v
+                                                                            )
+                                                                          },
+                                                                          expression:
+                                                                            "\n                                                                        newUser.cellphone\n                                                                    "
+                                                                        }
+                                                                      }
+                                                                    )
+                                                                  ],
+                                                                  1
+                                                                ),
+                                                                _vm._v(" "),
+                                                                _c(
+                                                                  "v-col",
+                                                                  {
+                                                                    staticClass:
+                                                                      "py-0",
+                                                                    attrs: {
+                                                                      cols: "4",
+                                                                      xs: "12"
+                                                                    }
+                                                                  },
+                                                                  [
+                                                                    _c(
+                                                                      "v-text-field",
+                                                                      {
+                                                                        attrs: {
+                                                                          label:
+                                                                            "Senha",
+                                                                          required:
+                                                                            ""
+                                                                        },
+                                                                        model: {
+                                                                          value:
+                                                                            _vm
+                                                                              .newUser
+                                                                              .password,
+                                                                          callback: function(
+                                                                            $$v
+                                                                          ) {
+                                                                            _vm.$set(
+                                                                              _vm.newUser,
+                                                                              "password",
+                                                                              $$v
+                                                                            )
+                                                                          },
+                                                                          expression:
+                                                                            "\n                                                                        newUser.password\n                                                                    "
+                                                                        }
+                                                                      }
+                                                                    )
+                                                                  ],
+                                                                  1
+                                                                )
+                                                              ],
+                                                              1
+                                                            ),
+                                                            _vm._v(" "),
+                                                            _c(
+                                                              "v-row",
+                                                              [
+                                                                _c("v-col", {
+                                                                  staticClass:
+                                                                    "pt-0",
+                                                                  attrs: {
+                                                                    cols: "10"
+                                                                  }
+                                                                }),
+                                                                _vm._v(" "),
+                                                                _c(
+                                                                  "v-col",
+                                                                  {
+                                                                    staticClass:
+                                                                      "pt-0",
+                                                                    attrs: {
+                                                                      cols: "2"
+                                                                    }
+                                                                  },
+                                                                  [
+                                                                    _c(
+                                                                      "v-spacer"
+                                                                    ),
+                                                                    _vm._v(" "),
+                                                                    _c(
+                                                                      "v-btn",
+                                                                      {
+                                                                        attrs: {
+                                                                          color:
+                                                                            "success"
+                                                                        },
+                                                                        on: {
+                                                                          click: function(
+                                                                            $event
+                                                                          ) {
+                                                                            return _vm.createUser()
+                                                                          }
+                                                                        }
+                                                                      },
+                                                                      [
+                                                                        _c(
+                                                                          "v-icon",
+                                                                          {
+                                                                            attrs: {
+                                                                              dark:
+                                                                                "",
+                                                                              right:
+                                                                                ""
+                                                                            }
+                                                                          },
+                                                                          [
+                                                                            _vm._v(
+                                                                              "mdi-content-save"
+                                                                            )
+                                                                          ]
+                                                                        ),
+                                                                        _vm._v(
+                                                                          "\n                                                                      Criar\n                                                                "
+                                                                        )
+                                                                      ],
+                                                                      1
+                                                                    )
+                                                                  ],
+                                                                  1
+                                                                )
+                                                              ],
+                                                              1
+                                                            )
+                                                          ],
+                                                          1
+                                                        )
+                                                      ],
+                                                      1
+                                                    )
+                                                  ],
+                                                  1
+                                                )
+                                              ],
+                                              1
+                                            )
+                                          ],
+                                          1
+                                        )
+                                      ]
+                                    },
+                                    proxy: true
+                                  },
+                                  {
+                                    key: "item.actions",
+                                    fn: function(ref) {
+                                      var item = ref.item
+                                      return [
+                                        item.level == "free"
+                                          ? _c(
+                                              "v-icon",
+                                              {
+                                                attrs: { color: "success" },
+                                                on: {
+                                                  click: function($event) {
+                                                    return _vm.editUser(
+                                                      item.id,
+                                                      1
+                                                    )
+                                                  }
+                                                }
+                                              },
+                                              [
+                                                _vm._v(
+                                                  "\n                                        mdi-arrow-up-circle\n                                    "
+                                                )
+                                              ]
+                                            )
+                                          : _vm._e(),
+                                        _vm._v(" "),
+                                        item.level == "premium"
+                                          ? _c(
+                                              "v-icon",
+                                              {
+                                                attrs: { color: "deep-orange" },
+                                                on: {
+                                                  click: function($event) {
+                                                    return _vm.editUser(
+                                                      item.id,
+                                                      2
+                                                    )
+                                                  }
+                                                }
+                                              },
+                                              [
+                                                _vm._v(
+                                                  "\n                                        mdi-arrow-down-circle\n                                    "
+                                                )
+                                              ]
+                                            )
+                                          : _vm._e()
+                                      ]
+                                    }
+                                  }
+                                ])
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
         ],
         1
       )

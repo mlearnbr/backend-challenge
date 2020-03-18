@@ -21,9 +21,8 @@ class UserTest extends TestCase
             'POST',
             '/user',
             [
-                'msisdn' => '+5531944443333',
+                'cellphone' => '+5531944443333',
                 'name' => 'Usuário Teste',
-                'access_level' => 'free',
                 'password' => '123456789'
             ]
         );
@@ -47,9 +46,13 @@ class UserTest extends TestCase
         // Cria 10 Usuários no DB
         factory(User::class, 10)->make();
 
+        // Verifica o Status
         $response = $this->get('/user');
-
         $response->assertStatus(200);
+
+        // Verifica se há 10 usuários
+        $response = $this->getJson('api/threads')->content();
+        assert(count(json_decode($response, true)) == 10);
     }
 
     /**
@@ -57,18 +60,32 @@ class UserTest extends TestCase
      */
     public function testUserUpgrade()
     {
-        $user = factory(User::class)->make();
+        // Cria um novo Usuário
+        $response = $this->json(
+            'POST',
+            '/user',
+            [
+                'cellphone' => '+5531944443333',
+                'name' => 'Usuário Teste',
+                'password' => '123456789'
+            ]
+        );
 
         //Envia requisição de upgrade
         $response = $this->json(
             'PUT',
             '/user/upgrade',
-            ['id' => $user->id]
+            ['id' => 1]
         );
+
+        // Verifica se a requisição foi válida
+        $response
+            ->assertStatus(200)
+            ->assertJson(['status' => true]);
 
         // Verifica se o usuário teve um upgrade
         $this->assertDatabaseHas('users', [
-            'id' => $user->id, 'access_level' => 'premium'
+            'id' => 1, 'access_level' => 'premium'
         ]);
     }
 
@@ -77,20 +94,43 @@ class UserTest extends TestCase
      */
     public function testUserDowngrade()
     {
-        $user = factory(User::class)->make([
-            'access_level' => 'premium',
-        ]);
+        // Cria um novo Usuário
+        $response = $this->json(
+            'POST',
+            '/user',
+            [
+                'cellphone' => '+5531944443333',
+                'name' => 'Usuário Teste',
+                'password' => '123456789'
+            ]
+        );
+
+        //Envia requisição de upgrade
+        $response = $this->json(
+            'PUT',
+            '/user/upgrade',
+            ['id' => 1]
+        );
+
+        // Verifica se a requisição foi válida
+        $response
+            ->assertStatus(200)
+            ->assertJson(['status' => true]);
 
         //Envia requisição de upgrade
         $response = $this->json(
             'PUT',
             '/user/downgrade',
-            ['id' => $user->id]
+            ['id' => 1]
         );
+        // Verifica se a requisição foi válida
+        $response
+            ->assertStatus(200)
+            ->assertJson(['status' => true]);
 
-        // Verifica se o usuário teve um upgrade
+        // Verifica se o usuário teve um downgrade
         $this->assertDatabaseHas('users', [
-            'id' => $user->id, 'access_level' => 'free'
+            'id' => 1, 'access_level' => 'free'
         ]);
     }
 }

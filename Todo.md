@@ -17,6 +17,7 @@ Itens a serem realizados para a conclusão dos desafios
 - [x] Configurar com Banco de dados Local
 - [x] Instalar Base Vue+Vuetify
 - [x] Criar Testes
-- [ ] Desenvolver funções de cadastro
-- [ ] Criar UI
+- [x] Desenvolver funções de cadastro
+- [x] Criar UI
+- [ ] Fazer integração com mLearn
 - [ ] Criar documentação
