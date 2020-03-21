@@ -1,9 +1,5 @@
 /segundo-desafio/node_modules
-/segundo-desafio/public/hot
-/segundo-desafio/public/storage
-/segundo-desafio/storage/*.key
 /segundo-desafio/vendor
-/segundo-desafio/.env
 /segundo-desafio/.env.backup
 /segundo-desafio/.phpunit.result.cache
 /segundo-desafio/Homestead.json
