@@ -13,7 +13,11 @@
                         {{ Form::text('name', isset($oUser) ? $oUser->name : null, ['class' => 'form-control', 'placeholder' => 'Nome', 'required' => 'required']) }}
                     </div>
                     <div class="form-group">
-                        {{ Form::text('celphone', isset($oUser) ? $oUser->celphone : null, ['class' => 'form-control phoneMask', 'placeholder' => 'Telefone Celular', 'required' => 'required']) }}
+                        {{ Form::text('cellphone', isset($oUser) ? $oUser->cellphone : null, ['class' => 'form-control phoneMask', 'placeholder' => 'Telefone Celular', 'required' => 'required']) }}
+                    </div>
+
+                <div class="form-group">
+                        {{ Form::password('password', ['class' => 'form-control', 'placeholder' => 'Senha']) }}
                     </div>
                 <div class="form-group">
                     {{ Form::select('access_level',

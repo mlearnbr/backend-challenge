@@ -18,4 +18,6 @@ Route::get('/', function () {
 Route::get('user/parse_index', 'UserController@parse_index');
 Route::get('user/edit', 'UserController@edit');
 Route::get('user/delete', 'UserController@delete');
+Route::get('user/upgrade', 'UserController@upgrade');
+Route::get('user/downgrade', 'UserController@downgrade');
 Route::post('user/save', 'UserController@save');

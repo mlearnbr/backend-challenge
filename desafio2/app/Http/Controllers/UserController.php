@@ -29,9 +29,9 @@ class UserController extends Controller
             $oData = new \stdClass();
             $oData->id = $oUser->id;
             $oData->name = $oUser->name;
-            $oData->celphone = $oUser->celphone;
+            $oData->cellphone = $oUser->cellphone;
             $oData->access_level = $this->NavigationHelper->builLabelAccessLevelUser($oUser->access_level);
-            $oData->actions = $this->NavigationHelper->builMenuActionsUsersTable();
+            $oData->actions = $this->NavigationHelper->builMenuActionsUsersTable($oUser->access_level);
 
             $aRetorno['rows'][] = $oData;
         }
@@ -116,6 +116,72 @@ class UserController extends Controller
             }
 
             $oUser->deleteCustom();
+
+        } catch (\Exception $ex){
+            $aRetorno = ['msg' => $ex->getMessage(), 'class' => 'error'];
+        }
+
+        return response()->json($aRetorno);
+    }
+
+    /**
+     * Realiza o upgrade de um usuario
+     *
+     * @author Rodrigo Cabral <rbatista.ti@gmail.com>
+     * @since 1.0.0
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function upgrade(Request $request)
+    {
+
+        $aRetorno = ['msg' => 'Upgrade realizado com sucesso!', 'class' => 'success'];
+
+        try {
+            if ($request->has('id') && !empty($request->get('id'))) {
+
+                $oUser = User::find($request->get('id'));
+                if(!$oUser)
+                    throw new \Exception('Usuário não localizado');
+            } else {
+                $oUser = new User;
+            }
+
+            $oUser->upgrade();
+
+        } catch (\Exception $ex){
+            $aRetorno = ['msg' => $ex->getMessage(), 'class' => 'error'];
+        }
+
+        return response()->json($aRetorno);
+    }
+
+    /**
+     * Realiza o upgrade de um usuario
+     *
+     * @author Rodrigo Cabral <rbatista.ti@gmail.com>
+     * @since 1.0.0
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function downgrade(Request $request)
+    {
+
+        $aRetorno = ['msg' => 'Downgrade realizado com sucesso!', 'class' => 'success'];
+
+        try {
+            if ($request->has('id') && !empty($request->get('id'))) {
+
+                $oUser = User::find($request->get('id'));
+                if(!$oUser)
+                    throw new \Exception('Usuário não localizado');
+            } else {
+                $oUser = new User;
+            }
+
+            $oUser->downgrade();
 
         } catch (\Exception $ex){
             $aRetorno = ['msg' => $ex->getMessage(), 'class' => 'error'];

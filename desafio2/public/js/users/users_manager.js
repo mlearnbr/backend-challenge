@@ -33,8 +33,8 @@ var UsersManager = (function () {
                     sortable: false
                 }, {
                     title: 'Telefone',
-                    field: 'celphone',
-                    sortName: 'Users.celphone',
+                    field: 'cellphone',
+                    sortName: 'Users.cellphone',
                     sortable: false
                 }, {
                     title: 'Nível',
@@ -50,13 +50,21 @@ var UsersManager = (function () {
                         },
                         'click .remove': (e, value, row, index) => {
                             _delete(row.id);
+                        },
+                        'click .upgrade': (e, value, row, index) => {
+                            _upgrade(row.id);
+                        },
+                        'click .downgrade': (e, value, row, index) => {
+                            _downgrade(row.id);
                         }
                     }
 
                 }
             ]
         };
-        usersTable.bootstrapTable(settings);
+        usersTable.bootstrapTable(settings).on('all.bs.table', () => {
+            $('[data-toggle="tooltip"]').tooltip({ placement: 'top' });
+        });
     };
 
     var _edit = function (id) {
@@ -72,7 +80,7 @@ var UsersManager = (function () {
                 $("#modal").html(data);
                 $('#modalAddUsuario').modal();
             }).fail(function () {
-                $.notify({message: 'Não foi possível executar essa ação no momento. Tente mais tarde'},{type: 'danger'});
+                Swal.fire({title: "", text: 'Não foi possível executar essa ação no momento. Tente mais tarde', icon: 'danger'});
             });
     };
 
@@ -102,10 +110,82 @@ var UsersManager = (function () {
             },
             allowOutsideClick: () => !Swal.isLoading()
         }).then(function (data) {
-            let res = data.value;
-            Swal.fire({title: "", text: res.msg, icon: res.class}).then(function () {
-                _updateTable();
-            });
+            if(!data.dismiss) {
+                let res = data.value;
+                Swal.fire({title: "", text: res.msg, icon: res.class}).then(function () {
+                    _updateTable();
+                });
+            }
+        });
+    };
+
+    var _upgrade = function (id) {
+
+        var settings = {
+            type: 'get',
+            url: 'user/upgrade',
+            data: {id: id}
+        };
+
+        Swal.fire({
+            title: "Você tem certeza?",
+            text: "Deseja realizar o Upgrade deste Usuário?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Sim",
+            cancelButtonText: "Não",
+            showLoaderOnConfirm: true,
+            preConfirm: function (isConfirm) {
+                if (isConfirm) {
+                    return $.ajax(settings)
+                        .done( data => data)
+                        .fail(data => data.responseJSON);
+                }
+            },
+            allowOutsideClick: () => !Swal.isLoading()
+        }).then(function (data) {
+            if(!data.dismiss) {
+                let res = data.value;
+                Swal.fire({title: "", text: res.msg, icon: res.class}).then(function () {
+                    _updateTable();
+                });
+            }
+        });
+    };
+
+    var _downgrade = function (id) {
+
+        var settings = {
+            type: 'get',
+            url: 'user/downgrade',
+            data: {id: id}
+        };
+
+        Swal.fire({
+            title: "Você tem certeza?",
+            text: "Deseja realizar o Downgrade deste Usuário?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Sim",
+            cancelButtonText: "Não",
+            showLoaderOnConfirm: true,
+            preConfirm: function (isConfirm) {
+                if (isConfirm) {
+                    return $.ajax(settings)
+                        .done( data => data)
+                        .fail(data => data.responseJSON);
+                }
+            },
+            allowOutsideClick: () => !Swal.isLoading()
+        }).then(function (data) {
+            if(!data.dismiss) {
+                let res = data.value;
+                Swal.fire({title: "", text: res.msg, icon: res.class}).then(function () {
+                    _updateTable();
+                });
+            }
         });
     };
 
