@@ -7,67 +7,20 @@
     <title>Desafio 01 - back-end mLearn!</title>
 </head>
 <body>
+<div>
+    <h3>Desafio 01</h3>
+    <p>
 
-<div id="app">
-    <h1>{{ titulo }}</h1>
-    <label for="">Nome</label><br>
-    <input type="text" name="" v-model="nome">
-
+    </p>
+    <label> Tamanho: </label>
+    <input type="number" id="tam" value="">
     <br>
     <br>
-    <label for="">Telefone</label><br>
-    <input type="text" name="" v-model="telefone">
-
     <br>
+    <button id="btnGerarMatriz"> Gerar Matriz e Calcular</button>
     <br>
-    <label for="">Deseja receber novidades?</label><br>
-    <input type="radio" name="novidades" value="Sim" v-model="novidades"> Sim
-    <input type="radio" name="novidades" value="Sim" v-model="novidades"> Não
-
-    <br>
-    <br>
-    <label for="">Interesses</label><br>
-    <input type="checkbox" name="interesses" value="futebol" v-model="interesses"> Futebol <br>
-    <input type="checkbox" name="interesses" value="formula 1" v-model="interesses"> Formula 1 <br>
-    <input type="checkbox" name="interesses" value="corrida" v-model="interesses"> Corrida <br>
-
-    <br><br>
-    <label>Como nos conheceu?</label><br>
-    <select name="conheceu" v-model="conheceu">
-        <option value=""> Escolha</option>
-        <option value="Google">Google</option>
-        <option value="TV">TV</option>
-        <option value="Revista">Revista</option>
-
-    </select>
-
-    <br><br>
-
-    <button> Enviar </button>
-
-    <hr>
-
-    Nome: {{ nome }} <br>
-    Telefone: {{ telefone }} <br>
-    Novidades: {{ novidades }} <br>
-    Interesses: {{ interesses }} <br>
-    Como nos Conheceu? {{ conheceu }} <br>
-
+    <div id="log"></div>
 </div>
-
-<script type="text/javascript" src="https://unpkg.com/vue"></script>
-<script type="text/javascript">
-    var app = new Vue({
-        el: "#app",
-        data: {
-            titulo: "Desafio 01 - back-end mLearn!",
-            nome: "",
-            telefone: "",
-            novidades: "",
-            interesses: [],
-            conheceu: "",
-        }
-    });
-</script>
+<script type="text/javascript" src="index.js"></script>
 </body>
 </html>
