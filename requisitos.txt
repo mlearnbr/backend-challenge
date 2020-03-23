@@ -1,0 +1,13 @@
+gestão de usuários e integrá-lo com nossa API
+
+msisdn Número de celular do usuário no formato
+
++5531999999999, será utilizado como login
+
+name Nome do usuário
+
+access_level Nível de acesso do usuário: (​free ou premium)
+
+password ​ (opcional) Senha de acesso do usuário
+
+external_id ID do usuário no seu sistema. 
