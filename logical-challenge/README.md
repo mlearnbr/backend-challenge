@@ -14,7 +14,7 @@ Como não foi definido se a matriz seria gerada randomicamente ou se seria defin
 ```javascript
 const matrixHandle = new MatrixHandle();
 ```
-2. Utilize o método setMatrix passando como parâmetro uma matriz quadrada de números inteiros ou utilize o método generateRamdonMatrix passando como parâmetro um número inteiro para especificar seu tamanho.
+2. Utilize o método setMatrix passando como parâmetro uma matriz quadrada de números inteiros ou utilize o método generateRandomMatrix passando como parâmetro um número inteiro para especificar seu tamanho.
 ```javascript
 //Especificando sua própria matriz
 matrixHandle.setMatrix([[8, 3, -28], [6, 87, -435], [98, 55, 188]]);
@@ -23,7 +23,7 @@ ou
 ```javascript
 //Gerando uma matriz randomicamente
 const matrixSize = 3;
-matrixHandle.generateRamdonMatrix(dimension);
+matrixHandle.generateRandomMatrix(dimension);
 ```
 2. Chame o método matrixHandle.getDiffBetweenDiagonals()
 ```javascript
@@ -36,7 +36,10 @@ matrixHandle.getDiffBetweenDiagonals();
 #### **setMatrix**
 **Recebe**: matriz quadrada de inteiros (obrigatório)
 **Retorna**: void
-#### **generateRamdonMatrix**
+#### **checkIfMatrixIsValid**
+**Recebe**: matriz quadrada de inteiros (obrigatório)
+**Retorna**: objeto
+#### **generateRandomMatrix**
 **Recebe**: número inteiro positivo (obrigatório)
 **Retorna**: void
 #### **getMatrix**
@@ -45,9 +48,3 @@ matrixHandle.getDiffBetweenDiagonals();
 #### **getDiffBetweenDiagonals**
 **Recebe**: não recebe nada
 **Retorna**: Resultado inteiro entre a diferença das duas diagonais da matriz
-#### **getSumBetweenLeftDiagonal**
-**Recebe**: não recebe nada
-**Retorna**: Resultado inteiro da soma da diagonal esqueda-base
-#### **getSumBetweenRightDiagonal**
-**Recebe**: não recebe nada
-**Retorna**: Resultado inteiro da soma da diagonal direito-base
