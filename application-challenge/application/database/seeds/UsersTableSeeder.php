@@ -16,8 +16,19 @@ class UsersTableSeeder extends Seeder
             'msisdn' => '+5598991695617',
             'name' => 'Marcony Caldeira',
             'access_level' => 'free',
-            'password' => '123',
-            'external_id' => '38'
+            'password' => '123'
+        ]);
+        User::create([
+            'msisdn' => '+5598991695617',
+            'name' => 'Joao Caldeira',
+            'access_level' => 'premium',
+            'password' => '123'
+        ]);
+        User::create([
+            'msisdn' => '+5598991695617',
+            'name' => 'George Caldeira',
+            'access_level' => 'premium',
+            'password' => '123'
         ]);
     }
 }

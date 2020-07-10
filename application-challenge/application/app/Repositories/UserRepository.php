@@ -8,28 +8,26 @@ use App\Repositories\UserRepository;
 use App\Models\User;
 use App\Validators\UserValidator;
 
-/**
- * Class UserRepository.
- *
- * @package namespace App\Repositories;
- */
+
 class UserRepository extends BaseRepository
 {
-    /**
-     * Specify Model class name
-     *
-     * @return string
-     */
+    
     public function model()
     {
         return User::class;
     }
 
-    
+    public function search()
+    {
+        
+        $results = $this->model->when(!empty(request()->name), function($query){
+            return $query->where('name', 'like', '%'.request()->name.'%');
+        })->paginate(1);
 
-    /**
-     * Boot up the repository, pushing criteria
-     */
+        return $results;
+    }
+
+    
     public function boot()
     {
         $this->pushCriteria(app(RequestCriteria::class));
