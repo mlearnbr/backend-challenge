@@ -29,4 +29,4 @@ Como a aplicação está configurada para a utilização do Docker a instalaçã
 
 `docker-compose run --rm npm run prod`
 
-5. Acesse por meio do seu navegador o endereço http://localhost:9000
+5. Acesse por meio do seu navegador o endereço http://localhost:8080
