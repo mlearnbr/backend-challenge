@@ -21,3 +21,9 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/home', 'HomeController@diagonalsDiff');
+Route::prefix('users')->name('users.')->group(function () {
+    Route::get('/', 'UsersController@index')->name('home');
+    Route::get('/upgrade/{id}', 'UsersController@upgrade')->name('upgrade');
+    Route::get('/downgrade/{id}', 'UsersController@downgrade')->name('downgrade');
+    Route::get('/delete/{id}', 'UsersController@delete')->name('delete');
+});
