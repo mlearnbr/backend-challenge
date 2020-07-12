@@ -47,7 +47,7 @@ echo diagonalsDiff($array);
                         <a href="{{ route('users.home') }}" class="btn btn-lg btn-primary">Listagem de usuários cadastrados</a>
                     </p>
                     <p class="text-muted">
-                        O código fonte da aplicação está disponível no <a href="{{ route('users.home') }}" class="">GitHub</a>.
+                        O código fonte da aplicação está disponível no <a href="https://github.com/perrout/backend-challenge" target="_blank">GitHub</a>.
                     </p>
                 </div>
             </div>
