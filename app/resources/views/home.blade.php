@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-10">
             <div class="card">
                 <div class="card-header">{{ __('Dashboard') }}</div>
 
@@ -13,8 +13,35 @@
                             {{ session('status') }}
                         </div>
                     @endif
+                    <h2>1 - Desafio Lógico</h2>
+                    <pre>
+function diagonalsDiff( $array = array() ) {
+    // Define as variáveis
+    $first_diag = $second_diag = 0; 
+    // Cria um loop para definir as diagonais
+    foreach($array as $index => $sub_array){ 
+        $first_diag += $sub_array[$index]; 
+        $second_diag += $sub_array[count($array) - $index - 1];
+    }
+    // Retorna o resultado da diferença entre as diagonais
+    return $first_diag - $second_diag; 
+}
 
-                    {{ __('You are logged in!') }}
+$array = array(
+    array(1,2,3),
+    array(4,5,6),
+    array(9,8,9)
+); 
+
+echo diagonalsDiff($array);
+                    </pre>
+                    <form method="POST" action="{{ route('home') }}">
+                        @csrf
+                        <button type="submit" class="btn btn-lg btn-primary">Testar função</button>
+                        @if (isset($result))
+                        <strong>Resultado: </strong> {{ $result }}
+                        @endif
+                    </form>
                 </div>
             </div>
         </div>
