@@ -42,6 +42,13 @@ echo diagonalsDiff($array);
                         <strong>Resultado: </strong> {{ $result }}
                         @endif
                     </form>
+                    <h2 class="mt-5 mb-4">2 - Desafio de Aplicação</h2>
+                    <p>
+                        <a href="{{ route('users.home') }}" class="btn btn-lg btn-primary">Listagem de usuários cadastrados</a>
+                    </p>
+                    <p class="text-muted">
+                        O código fonte da aplicação está disponível no <a href="{{ route('users.home') }}" class="">GitHub</a>.
+                    </p>
                 </div>
             </div>
         </div>
