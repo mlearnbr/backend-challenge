@@ -1,6 +1,6 @@
 # Desafio back-end da mLearn
 
-# Dependências
+## Dependências
 - PHP >= 7.2.5
 - BCMath PHP Extension
 - Ctype PHP Extension
