@@ -24,6 +24,7 @@ cp .env.example .env
 composer install
 ```
 - Configurações - Banco dados
+```
 php artisan migrate
 php artisan db:seed
 ```
@@ -34,3 +35,4 @@ php artisan serve
 - Url de acesso
 ```
 http://loacalhost:8000
+```
