@@ -34,5 +34,5 @@ php artisan serve
 ```
 - Url de acesso
 ```
-http://loacalhost:8000
+http://127.0.0.1:8000
 ```
