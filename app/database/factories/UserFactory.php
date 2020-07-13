@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Hash;
 $factory->define(User::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
-        'msisdn' => sprintf('+55%s', preg_replace("/[^0-9]/", "", $faker->unique()->cellphoneNumber)),
+        'msisdn' => sprintf('+55 %s', $faker->unique()->cellphoneNumber),
         'access_level' => 'free',
         'password' => Hash::make(Str::random(8)),
         'remember_token' => Str::random(10),

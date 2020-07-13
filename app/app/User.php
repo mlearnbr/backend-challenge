@@ -39,4 +39,15 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Set the user's msisdn.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setMsisdnAttribute($value)
+    {
+        $this->attributes['msisdn'] = $value ? preg_replace("/[^0-9\+]/", "", $value) : $value;
+    }
 }
