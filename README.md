@@ -23,7 +23,7 @@ git clone https://github.com/perrout/backend-challenge.git
 cp .env.example .env
 composer install
 ```
-- Configurações - Banco dados
+- Configurações - Banco dados - *Pode demorar um pouco pois irá criar 10 usuários e também enviará as 10 requisições para a API mLearn.
 ```
 php artisan migrate
 php artisan db:seed
