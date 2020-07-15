@@ -66,7 +66,8 @@ class User extends Authenticatable
             'name' => $this->getName(),
             'phone' => $this->getPhone(),
             'email' => $this->getEmail(),
-            'accessLevel' => $this->getAccessLevel()
+            'accessLevel' => $this->getAccessLevel() ?? User::FREE_ACCESS,
+            'externalId' => $this->getExternalId()
         ];
     }
 
