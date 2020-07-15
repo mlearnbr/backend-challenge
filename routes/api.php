@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::get('users', 'UserController@index');
+Route::post('users', 'UserController@create');
+Route::put('users/upgrade/{userId}', 'UserController@upgradeUser');
+Route::put('users/downgrade/{userId}', 'UserController@downgradeUser');

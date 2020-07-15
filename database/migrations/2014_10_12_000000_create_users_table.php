@@ -17,8 +17,10 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
+            $table->string('msisdn')->unique();
+            $table->enum('access_level', [\App\Models\User::PREMIUM_ACCESS, \App\Models\User::FREE_ACCESS]);
             $table->string('password');
+            $table->string('external_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
