@@ -17,7 +17,9 @@ class UserRepository implements UserRepositoryInterface
 
     public function saveUser(User $user)
     {
-        $user->save();
+        if ($user->validate()) {
+            $user->save();
+        }
     }
 
     public function findOrFailUser(int $userId): User

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Interfaces\User\CreateUserInterface;
+use Exception;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -24,7 +25,7 @@ class User extends Authenticatable
     {
         $this->name = $createUser->getName();
         $this->password = $createUser->createPassword();
-        $this->access_level = $createUser->getAccessLevel();
+        $this->access_level = $createUser->getAccessLevel() ?? User::FREE_ACCESS;
         $this->email = $createUser->getEmail();
         $this->msisdn = self::DEFAULT_PHONE_COUNTRY_CODE . $createUser->getPhone();
     }
@@ -56,7 +57,7 @@ class User extends Authenticatable
 
     public function getExternalId() : string
     {
-        return $this->external_id;
+        return $this->external_id ?? ' - ';
     }
 
     public function toPublicArray() : array
@@ -66,7 +67,7 @@ class User extends Authenticatable
             'name' => $this->getName(),
             'phone' => $this->getPhone(),
             'email' => $this->getEmail(),
-            'accessLevel' => $this->getAccessLevel() ?? User::FREE_ACCESS,
+            'accessLevel' => $this->getAccessLevel(),
             'externalId' => $this->getExternalId()
         ];
     }
@@ -88,5 +89,14 @@ class User extends Authenticatable
         if ($this->access_level === self::PREMIUM_ACCESS) {
             $this->access_level = self::FREE_ACCESS;
         }
+    }
+
+    public function validate() : bool
+    {
+        if (User::where('msisdn', $this->msisdn)->count() > 0 && !$this->exists) {
+            throw new Exception('Ja existe um usuário com esse numero de telefone');
+        }
+
+        return true;
     }
 }

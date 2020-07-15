@@ -29,9 +29,9 @@ class CreateUserRequest extends FormRequest implements CreateUserInterface
         return [
             'name' => 'required',
             'password' => 'required',
-            'email' => ['required', 'unique:users.email'],
+            'email' => ['required', 'unique:users,email'],
             'accessLevel' => Rule::in(User::FREE_ACCESS, User::PREMIUM_ACCESS),
-            'phone' => ['required', 'min:11', 'max:11']
+            'phone' => ['required', 'min:11', 'max:11', 'not_regex:/\D/']
         ];
     }
 

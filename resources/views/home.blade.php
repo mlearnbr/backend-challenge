@@ -8,7 +8,7 @@
         <link href="{{asset('dist/css/app.css')}}" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/@mdi/font@5.x/css/materialdesignicons.min.css" rel="stylesheet">
         <style>
-            .swal2-title, .swal2-content{
+            .swal2-title, .swal2-content, .swal2-actions{
                 font-family: "Roboto", sans-serif;
             }
         </style>

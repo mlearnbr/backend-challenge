@@ -64,7 +64,7 @@
           phone: [
             v => !!v || 'Numero celular é obrigatório',
             v => v.length === 11 || 'Numero de celular invalido',
-            v => /\d/.test(v) || 'Numero de celular invalido'
+            v => !(/\D/.test(v)) || 'Numero de celular invalido',
           ],
           email: [
             v => !!v || 'email é obrigatório',
@@ -77,22 +77,46 @@
       }
     },
     methods: {
-      async saveUser () {
+      getUser() {
+        const user = {};
+        Object.keys(this.user).forEach(attribute => {
+          if (this.user[attribute] !== null && this.user[attribute] !== '') {
+            user[attribute] = this.user[attribute];
+          }
+        })
+
+        return user;
+      },
+      saveUser () {
         this.$refs.form.validate()
         if (this.valid) {
           window.Swal.fire({title: "Carregando", text: 'Aguarde enquanto processamos.'});
           window.Swal.showLoading();
-          const response = await window.axios.post('/users', this.user)
-          if (response.data.success) {
-            window.Swal.fire({
-                title: 'Sucesso',
-                text: 'Usuario Cadastrado',
-                timer: 4000,
-                icon: 'success',
-                showConfirmButton: false,
-                onClose: () => window.location.reload()
-            });
-          }
+          window.axios.post('/users', this.getUser()).then(response => {
+              if (response.data.success && response.status === 200) {
+                  window.Swal.fire({
+                      title: 'Sucesso',
+                      text: 'Usuario Cadastrado',
+                      timer: 4000,
+                      icon: 'success',
+                      showConfirmButton: false,
+                      onClose: () => window.location.reload()
+                  });
+              }
+          }).catch(error => {
+              window.Swal.fire({
+                  title: 'Erro',
+                  text: error.response.data.message,
+                  icon: 'error',
+                  confirmButtonText: 'Tentar Novamente',
+                  cancelButtonText: 'Cancelar',
+                  showCancelButton: true,
+              }).then(close => {
+                  if (close.isConfirmed) {
+                      this.saveUser()
+                  }
+              });
+          })
         }
       }
     }
