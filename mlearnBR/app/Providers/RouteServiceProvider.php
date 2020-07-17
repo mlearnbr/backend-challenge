@@ -46,6 +46,10 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapWebRoutes();
 
+        $this->mapWebUsers();
+
+        $this->mapWebGroups();
+
         //
     }
 
@@ -58,9 +62,24 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapWebRoutes()
     {
-        Route::middleware('web')
+        Route::prefix('user')
+            ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/web.php'));
+    }
+
+    protected function mapWebUsers(){
+        Route::prefix('user')
+            ->middleware('web')
+            ->namespace('App\Http\Controllers\User')
+            ->group(base_path('routes/user.php'));
+    }
+
+    protected function mapWebGroups(){
+        Route::prefix('group')
+            ->middleware('web')
+            ->namespace('App\Http\Controllers\Group')
+            ->group(base_path('routes/group.php'));
     }
 
     /**
