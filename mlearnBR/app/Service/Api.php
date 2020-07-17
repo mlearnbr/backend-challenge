@@ -22,8 +22,7 @@ class Api{
          'form_params' => $this->builtParams($dados)
        ]);    	
    	 }catch(\Exception $e){
-       //dd($e->getResponse()->getStatusCode());       
-   	   return false;	
+       return false;	
    	 }
    	 return true;     
    }
