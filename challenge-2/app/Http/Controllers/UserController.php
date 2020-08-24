@@ -15,9 +15,12 @@ class UserController extends Controller
 
     public function __construct()
     {
-        $this->mLearn = config('mlearn.php');
-        $this->apiRequest = Http::withHeaders([
-            'Authorization' => 'Bearer ' . $this->mLearn['token'],
+        $this->mLearn = config('mlearn');
+
+        $this->apiRequest = Http::withOptions([
+            'verify' => false,
+        ])->withHeaders([
+            'Authorization' => $this->mLearn['token'],
             'service-id' => $this->mLearn['service_id'],
             'app-users-group-id' => $this->mLearn['group_id']
         ]);
@@ -54,6 +57,8 @@ class UserController extends Controller
         $data = $request->all();
         $user = User::create($data);
 
+        $user = User::orderby('created_at', 'desc')->first();
+
         $response = $this->apiRequest->post(
             'https://api2.mlearn.mobi/integrator/' . $this->mLearn['service_id'] . '/users',
             [
@@ -61,7 +66,7 @@ class UserController extends Controller
                 'name' => $user->name,
                 'access_level' => $user->access_level,
                 'password' => $user->password,
-                'external_id' => $user->external_id
+                'external_id' => $user->id
             ]
         );
 
@@ -106,23 +111,29 @@ class UserController extends Controller
     {
 
         $userApi = $this->apiRequest->get(
-            'https://api2.mlearn.mobi/integrator/' . $this->mLearn['service_id'] . '/users/?external_id' . $user->id
+            'https://api2.mlearn.mobi/integrator/' . $this->mLearn['service_id'] . '/users?external_id=' . $user->id
         );
 
-        $userApi = json_decode($userApi);
+        $userApi = json_decode($userApi->getBody());
 
         $response = $this->apiRequest->put(
             'https://api2.mlearn.mobi/integrator/' . $this->mLearn['service_id'] . '/users/' . $userApi->data->id,
             [
-                'msisdn' => $user->msisdn,
-                'name' => $user->name,
-                'access_level' => $user->access_level,
-                'password' => $user->password
+                'msisdn'       => $request->input('msisdn'),
+                'name'         => $request->input('name'),
+                'access_level' => $request->input('access_level'),
+                'password'     => $request->input('password'),
+                'external_id'  => $user->id
             ]
         );
+
         if ($response->successful()) {
-            $data = $request->all();
-            $user->save($data);
+
+            $user->msisdn = $request->input('msisdn');
+            $user->name = $request->input('name');
+            $user->access_level = $request->input('access_level');
+            $user->password = $request->input('password');
+            $user->save();
             flash('Usuário atualizado com sucesso!')->success();
             return redirect()->route('users.index');
         }
@@ -139,7 +150,7 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $userApi = $this->apiRequest->get(
-            'https://api2.mlearn.mobi/integrator/' . $this->mLearn['service_id'] . '/users/?external_id' . $user->id
+            'https://api2.mlearn.mobi/integrator/' . $this->mLearn['service_id'] . '/users?external_id=' . $user->id
         );
 
         $userApi = json_decode($userApi);
@@ -159,7 +170,7 @@ class UserController extends Controller
     public function toggleUserPlan(User $user)
     {
         $userApi = $this->apiRequest->get(
-            'https://api2.mlearn.mobi/integrator/' . $this->mLearn['service_id'] . '/users/?external_id' . $user->id
+            'https://api2.mlearn.mobi/integrator/' . $this->mLearn['service_id'] . '/users?external_id=' . $user->id
         );
 
         $userApi = json_decode($userApi);
