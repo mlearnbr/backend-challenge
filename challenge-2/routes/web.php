@@ -18,4 +18,4 @@ Route::get('/', function () {
 })->name('home');
 
 Route::resource('users', 'UserController');
-Route::put('users-toggle-plan', 'UserController@toggleUserPlan')->name('users-toggle-plan');
+Route::any('users-toggle-plan', 'UserController@toggleUserPlan')->name('users-toggle-plan');
