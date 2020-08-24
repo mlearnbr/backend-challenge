@@ -19,7 +19,6 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('access_level');
             $table->string('password')->nullable();
-            $table->string('external_id');
             $table->timestamps();
         });
     }
