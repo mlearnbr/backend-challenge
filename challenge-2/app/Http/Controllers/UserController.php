@@ -2,11 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use Config;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class UserController extends Controller
 {
+
+    private $apiRequest;
+    private $mLearn;
+
+    public function __construct()
+    {
+        $this->mLearn = config('mlearn.php');
+        $this->apiRequest = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $this->mLearn['token'],
+            'service-id' => $this->mLearn['service_id'],
+            'app-users-group-id' => $this->mLearn['group_id']
+        ]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -39,7 +54,22 @@ class UserController extends Controller
         $data = $request->all();
         $user = User::create($data);
 
-        flash('Usuário criado com sucesso!')->success();
+        $response = $this->apiRequest->post(
+            'https://api2.mlearn.mobi/integrator/' . $this->mLearn['service_id'] . '/users',
+            [
+                'msisdn' => $user->msisdn,
+                'name' => $user->name,
+                'access_level' => $user->access_level,
+                'password' => $user->password,
+                'external_id' => $user->external_id
+            ]
+        );
+
+        if ($response->successful()) {
+            flash('Usuário criado com sucesso!')->success();
+            return redirect()->route('users.index');
+        }
+        flash('Erro ao criar usuário, contate administrador')->error();
         return redirect()->route('users.index');
     }
 
@@ -74,8 +104,29 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $user->save($request->all());
-        flash('Usuário atualizado com sucesso!')->success();
+
+        $userApi = $this->apiRequest->get(
+            'https://api2.mlearn.mobi/integrator/' . $this->mLearn['service_id'] . '/users/?external_id' . $user->id
+        );
+
+        $userApi = json_decode($userApi);
+
+        $response = $this->apiRequest->put(
+            'https://api2.mlearn.mobi/integrator/' . $this->mLearn['service_id'] . '/users/' . $userApi->data->id,
+            [
+                'msisdn' => $user->msisdn,
+                'name' => $user->name,
+                'access_level' => $user->access_level,
+                'password' => $user->password
+            ]
+        );
+        if ($response->successful()) {
+            $data = $request->all();
+            $user->save($data);
+            flash('Usuário atualizado com sucesso!')->success();
+            return redirect()->route('users.index');
+        }
+        flash('Erro ao atualizar usuário, contate administrador')->error();
         return redirect()->route('users.index');
     }
 
@@ -87,9 +138,47 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        $user->delete();
+        $userApi = $this->apiRequest->get(
+            'https://api2.mlearn.mobi/integrator/' . $this->mLearn['service_id'] . '/users/?external_id' . $user->id
+        );
 
-        flash('Usuário excluido com sucesso!')->success();
+        $userApi = json_decode($userApi);
+
+        $response = $this->apiRequest->delete(
+            'https://api2.mlearn.mobi/integrator/' . $this->mLearn['service_id'] . '/users/' . $userApi->data->id
+        );
+        if ($response->successful()) {
+            $user->delete();
+            flash('Usuário excluido com sucesso!')->success();
+            return redirect()->route('users.index');
+        }
+        flash('Problema ao excluir usuário, contate administrador')->error();
+        return redirect()->route('users.index');
+    }
+
+    public function toggleUserPlan(User $user)
+    {
+        $userApi = $this->apiRequest->get(
+            'https://api2.mlearn.mobi/integrator/' . $this->mLearn['service_id'] . '/users/?external_id' . $user->id
+        );
+
+        $userApi = json_decode($userApi);
+        if ($userApi->data->access_level === 'free') {
+            $response = $this->apiRequest->put(
+                'https://api2.mlearn.mobi/integrator/' . $this->mLearn['service_id'] . '/users/' . $userApi->data->id . '/upgrade'
+            );
+            $user->access_level = 'premium';
+            $user->save();
+            flash('Upgrade realizado com sucesso!')->success();
+            return redirect()->route('users.index');
+        }
+
+        $response = $this->apiRequest->put(
+            'https://api2.mlearn.mobi/integrator/' . $this->mLearn['service_id'] . '/users/' . $userApi->data->id . '/downgrade'
+        );
+        $user->access_level = 'premium';
+        $user->save();
+        flash('Downgrade realizado com sucesso!')->success();
         return redirect()->route('users.index');
     }
 }
