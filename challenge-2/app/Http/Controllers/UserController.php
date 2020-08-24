@@ -167,13 +167,15 @@ class UserController extends Controller
         return redirect()->route('users.index');
     }
 
-    public function toggleUserPlan(User $user)
+    public function toggleUserPlan(Request $request)
     {
+        $id = $request->input('id');
+        $user = User::find($id);
         $userApi = $this->apiRequest->get(
             'https://api2.mlearn.mobi/integrator/' . $this->mLearn['service_id'] . '/users?external_id=' . $user->id
         );
 
-        $userApi = json_decode($userApi);
+        $userApi = json_decode($userApi->getBody());
         if ($userApi->data->access_level === 'free') {
             $response = $this->apiRequest->put(
                 'https://api2.mlearn.mobi/integrator/' . $this->mLearn['service_id'] . '/users/' . $userApi->data->id . '/upgrade'
@@ -187,7 +189,8 @@ class UserController extends Controller
         $response = $this->apiRequest->put(
             'https://api2.mlearn.mobi/integrator/' . $this->mLearn['service_id'] . '/users/' . $userApi->data->id . '/downgrade'
         );
-        $user->access_level = 'premium';
+        $user->access_level = 'free';
+
         $user->save();
         flash('Downgrade realizado com sucesso!')->success();
         return redirect()->route('users.index');
