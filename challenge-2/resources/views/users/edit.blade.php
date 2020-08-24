@@ -2,7 +2,7 @@
 
 
 @section('content')
-    <h1>Criar Usuário</h1>
+    <h1>Editar Usuário</h1>
     <form action="{{route('users.update', ['user' => $user->id])}}" method="post" enctype="multipart/form-data">
         @csrf
         @method("PUT")
@@ -57,7 +57,7 @@
         </div>
 
         <div>
-            <button type="submit" class="btn btn-lg btn-success">Criar Usuário</button>
+            <button type="submit" class="btn btn-lg btn-success">Editar Usuário</button>
         </div>
     </form>
 @endsection
