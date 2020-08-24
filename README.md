@@ -1,42 +1,61 @@
-# Desafio back-end da mLearn
+# Antes, o que você irá precisar?
 
-Esse repositório é o nosso desafio para avaliar o quão bom desenvolvedor back-end você é.
+- PHP >= 7.2.5
+- BCMath PHP Extension
+- Ctype PHP Extension
+- Fileinfo PHP extension
+- JSON PHP Extension
+- Mbstring PHP Extension
+- OpenSSL PHP Extension
+- PDO PHP Extension
+- Tokenizer PHP Extension
+- XML PHP Extension
+- Composer >= 1.10.10
+- Banco de dados MySQL ou PostgreSQL
 
-Provavelmente você já está participando do nosso processo seletivo, mas se você caiu aqui por acaso, leia o documento até o final e caso haja interesse, você pode começar daqui mesmo.
+## Use o comando:
 
+```
+git clone https://github.com/kalecio/mlearn-backend-challenge.git
+```
 
-## Sobre o desafio
+para clonar o repositório e em seguida o comando
 
-Esse é um desafio, não um teste ou uma prova de faculdade, portanto não há uma única resposta certa.
+```
+git checkout kalecio-pereira
+```
 
-Daremos a você alguns requisitos que devem ser cumpridos, e pelos quais você será avaliado, mas deixamos livre a escolha do método de solução.
+para acessar a branch com os desafios
 
-O que nós esperamos aprender sobre você com o desafio:
+---
 
-- Seu estilo de trabalho
-- Como você pensa e resolve problemas
-- Como você se comunica
+# Como rodar a aplicação?
 
-O que nós esperamos que você aprenda sobre a mLearn:
+## Desafio #1
 
-- Como nós trabalhamos como um time.
-- Tenha uma visão próxima dos desafios que enfrentamos no dia-a-dia.
+1. Acesse a pasta challenge-1 e utilize o comando `php challenge1.php`, caso deseje utilizar outras matrizes altere o valor das matrizes do código ou crie uma nova matriz quadrada e chame na função;
 
-## Próximos passos
+## Desafio #2
 
-1. Faça um _fork_ desse repositório para sua conta pessoal.
-2. As instruções do desafio se encontram no arquivo [`CHALLENGE.md`](/CHALLENGE.md).
-2. Resolva o desafio da forma que você julgar mais adequada.
-3. Utilize uma _branch_ nomeada com o formato (`nome-sobrenome`) para o desenvolvimento. E submeta o _pull-request_ para essa mesma _branch_.
+1. Acesse a pasta challenge-2 e utilize o comando `composer install` para instalar as dependências necessárias
+2. Altere o arquivo .env.example nas seguintes linhas:
 
-## Considerações
+```
+DB_CONNECTION=banco a ser utilizado
+DB_HOST=127.0.0.1
+DB_PORT=porta do banco de dados
+DB_DATABASE=nome da base de dados
+DB_USERNAME=usuario do banco de dados
+DB_PASSWORD=senha do banco de dados
 
-- Nós não iremos limitar a sua escolha por ferramentas e bibliotecas. Porém faça escolhas que sejam condizentes com o desafio apresentado. Para que utilizar uma bazuca para matar uma formiga?
-- O tempo sugerido para execução do teste é  de **2 horas e meia**.
-- Tente escrever o melhor código possível para que possamos avaliar o seu _pull-request_ com mais facilidade. E lembre-se: Você vai ter que explicar pessoalmente para nós depois.
+MLEARN_AUTHORIZATION=token de autorização da api mlearn
+MLEARN_SERVICE_ID=service-id da api mlearn
+MLEARN_APP_USERS_GROUP_ID=group-id da api mlearn
+```
 
-## Dúvidas?
+> Obs: Certifique se de utilizar uma base vazia para não perder dados ao utilizar a migration
 
-Ficou com alguma dúvida sobre como irá funcionar o processo? Entre em contato que nós te ajudaremos com o processo.
-
-**Boa sorte!**
+3. Renomeie o arquivo .env.example para .env
+4. Execute o comando `php artisan migrate` para executar as migrations em seu banco de dados e criar as tabelas corretamente
+5. Execute o comando `php artisan serve` para subir o servidor
+6. Acesse http://127.0.0.1:8000/ para visualizar o projeto em execução
