@@ -23,22 +23,24 @@
                     <td>{{$user->msisdn}}</td>
                     <td>{{$user->access_level}}</td>
                     <td>
-                        <div class="btn-group">
-
-                            <form action="{{route('users.update', ['user' => $user->id])}}" method="post">
+                        <div class="btn-group d-flex justify-content-between">
+                            <form action="{{route('users-toggle-plan', ['user' => $user->id])}}" method="post" class="d-flex w-25">
                                 @csrf
-                                @method("PUT")
-
-                                <button type="submit" class="btn btn-sm btn-danger">REMOVER</button>
+                                <input type="text" name="id" value="{{$user->id}}" hidden>
+                                @if ($user->access_level === 'free')
+                                    <button type="submit" class="btn btn-sm btn-warning p-2 flex-grow-1">UPGRADE</button>    
+                                @else
+                                    <button type="submit" class="btn btn-sm btn-warning p-2 flex-grow-1 flex-shrink-2">DOWNGRADE</button>    
+                                @endif
                             </form>
 
-                            <a href="{{route('users.edit', ['user' => $user->id])}}" class="btn btn-sm btn-primary mr-2">EDITAR</a>
+                            <a href="{{route('users.edit', ['user' => $user->id])}}" class="btn btn-sm btn-primary rounded p-2 mx-2 w-25">EDITAR</a>
         
-                            <form action="{{route('users.destroy', ['user' => $user->id])}}" method="post">
+                            <form action="{{route('users.destroy', ['user' => $user->id])}}" method="post" class="d-flex w-25">
                                 @csrf
                                 @method("DELETE")
 
-                                <button type="submit" class="btn btn-sm btn-danger">REMOVER</button>
+                                <button type="submit" class="btn btn-sm btn-danger p-2 flex-grow-1">REMOVER</button>
                             </form>
                         </div>
                     </td>
