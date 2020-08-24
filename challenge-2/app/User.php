@@ -9,5 +9,7 @@ class User extends Model
 {
     use Uuids;
 
+    public $incrementing = false;
+
     protected $guarded = [];
 }
