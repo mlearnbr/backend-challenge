@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Http\Resources\User as UserResource;
 
 class UserController extends Controller
 {
@@ -14,7 +15,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::all();
+
+        // Return collection of users as a resource
+        return UserResource::collection($users);
     }
 
     /**
