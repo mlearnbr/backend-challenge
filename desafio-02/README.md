@@ -16,7 +16,29 @@ O objetivo deste desafio é criar uma aplicação de gestão de usuários e inte
 - Ctype PHP Extension
 - JSON PHP Extension
 - BCMath PHP Extension
+- Composer
 - Node e npm
 - Internet
 
 ## Como rodar
+1. Clone e acesse a pasta do projeto
+2. Instale
+```
+composer install
+```
+3. Crie as tabelas
+```
+php artisan migrate
+4. Crie uma cópia do arquivo .env.example e renomeie para .env
+5. Configure o acesso ao seu banco de dados no .env
+6. Adicione as variáveis da API da mLearn
+```
+MLEARN_HOST=https://api2.mlearn.mobi/
+MLEARN_TOKEN=
+MLEARN_SERVICE_ID=
+MLEARN_APP_GROUP_ID=
+```
+7. Rodando localmente
+```
+php artisan serve
+```
