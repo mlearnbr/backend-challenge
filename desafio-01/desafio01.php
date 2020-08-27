@@ -25,4 +25,3 @@ for ($i=0; $i < sizeof($matriz); $i++) {
 
 $resultado = $somaPrincipal - $somaSecundaria;
 echo 'resposta: '.$resultado;
-
