@@ -16,13 +16,13 @@ class UserController extends Controller
     private $mLearnAppGroupId;
     private $mLearnToken;
     private $headers;
-    
+
     public function __construct()
     {
-        $this->mLearnHost = $_ENV['MLEARN_HOST'] . "integrator/";
-        $this->mLearnToken = $_ENV['MLEARN_TOKEN'];
-        $this->mLearnServiceId = $_ENV['MLEARN_SERVICE_ID'];
-        $this->mLearnAppGroupId = $_ENV['MLEARN_APP_GROUP_ID'];
+        $this->mLearnHost = config('api.mlearn_host') . "integrator/";
+        $this->mLearnToken = config('api.mlearn_token');
+        $this->mLearnServiceId = config('api.mlearn_service_id');
+        $this->mLearnAppGroupId = config('api.mlearn_group');
         $this->headers = [
             'Authorization' => 'Bearer '.$this->mLearnToken,
             'service-id' => $this->mLearnServiceId,
@@ -33,7 +33,7 @@ class UserController extends Controller
             'verify' => false,
             'headers' => $this->headers
         ]);
-        
+
     }
 
     /**

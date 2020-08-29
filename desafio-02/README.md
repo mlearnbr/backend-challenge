@@ -26,19 +26,24 @@ O objetivo deste desafio é criar uma aplicação de gestão de usuários e inte
 ```
 composer install
 ```
-3. Crie as tabelas
-```
-php artisan migrate
-4. Crie uma cópia do arquivo .env.example e renomeie para .env
-5. Configure o acesso ao seu banco de dados no .env
-6. Adicione as variáveis da API da mLearn
+3. Crie uma cópia do arquivo .env.example e renomeie para .env
+4. Configure o acesso ao seu banco de dados no .env
+5. Adicione as variáveis da API da mLearn
 ```
 MLEARN_HOST=https://api2.mlearn.mobi/
 MLEARN_TOKEN=
 MLEARN_SERVICE_ID=
 MLEARN_APP_GROUP_ID=
 ```
-7. Rodando localmente
+6. Crie a chave do projeto
+```
+php artisan key:generate
+```
+7. Crie as tabelas
+```
+php artisan migrate
+```
+8. Rodando localmente
 ```
 php artisan serve
 ```
