@@ -1822,6 +1822,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1877,20 +1890,32 @@ __webpack_require__.r(__webpack_exports__);
       this.user = user;
       $('#addNew').modal('show');
     },
-    updateUser: function updateUser() {
+    updateUser: function updateUser(user, level) {
       var _this3 = this;
 
-      var obj = this.user;
+      var obj = user;
+      obj.access_level = level;
       axios.put('api/users/' + obj.id, obj).then(function (_ref3) {
         var data = _ref3.data;
         console.log('usuário atualizado', data);
-        $('#addNew').modal('hide');
-        _this3.user = {
-          name: '',
-          msisdn: '',
-          password: '',
-          access_level: 'free'
-        };
+
+        var index = _this3.users.indexOf(user);
+
+        _this3.users[index] = obj;
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    deleteUser: function deleteUser(user) {
+      var _this4 = this;
+
+      axios["delete"]('api/users/' + user.id).then(function (_ref4) {
+        var data = _ref4.data;
+        console.log('usuario excluído', data);
+
+        var index = _this4.users.indexOf(user);
+
+        _this4.users.splice(index, 1);
       })["catch"](function (err) {
         console.log(err);
       });
@@ -6332,7 +6357,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.table-actions[data-v-47d47080] {\n    font-size: 18px;\n}\n.table-actions i[data-v-47d47080] {\n    padding-right: 6px;\n    cursor: pointer;\n}\n.table-actions i.edit[data-v-47d47080] {\n    color: #3498db;\n}\n.table-actions i.delete[data-v-47d47080] {\n    color: #e74c3c;\n}\n", ""]);
+exports.push([module.i, "\n.table-actions[data-v-47d47080] {\n    font-size: 18px;\n}\n.table-actions i[data-v-47d47080] {\n    padding-right: 6px;\n    cursor: pointer;\n}\n.table-actions span[data-v-47d47080] {\n    color: #3498db;\n    cursor:  ;\n}\n.table-actions i.delete[data-v-47d47080] {\n    float: right;\n    color: #e74c3c;\n}\n", ""]);
 
 // exports
 
@@ -38213,17 +38238,49 @@ var render = function() {
             _c("td", [_vm._v(_vm._s(user.access_level))]),
             _vm._v(" "),
             _c("td", { staticClass: "table-actions" }, [
+              user.access_level == "free"
+                ? _c(
+                    "span",
+                    {
+                      staticClass: "downgrade",
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          return _vm.updateUser(user, "premium")
+                        }
+                      }
+                    },
+                    [
+                      _c("i", { staticClass: "fas fa-arrow-circle-up" }),
+                      _vm._v("upgrade\n                    ")
+                    ]
+                  )
+                : _c(
+                    "span",
+                    {
+                      staticClass: "upgrade",
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          return _vm.updateUser(user, "free")
+                        }
+                      }
+                    },
+                    [
+                      _c("i", { staticClass: "fas fa-arrow-circle-down" }),
+                      _vm._v("downgrade\n                    ")
+                    ]
+                  ),
+              _vm._v(" "),
               _c("i", {
-                staticClass: "far fa-edit edit",
+                staticClass: "fas fa-times delete",
                 on: {
                   click: function($event) {
                     $event.preventDefault()
-                    return _vm.editModal(user)
+                    return _vm.deleteUser(user)
                   }
                 }
-              }),
-              _vm._v(" "),
-              _c("i", { staticClass: "fas fa-times delete" })
+              })
             ])
           ])
         }),

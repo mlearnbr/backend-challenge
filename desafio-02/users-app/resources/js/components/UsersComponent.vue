@@ -16,8 +16,21 @@
                     <td>{{ user.msisdn }}</td>
                     <td>{{ user.access_level }}</td>
                     <td class="table-actions">
-                        <i class="far fa-edit edit" @click.prevent="editModal(user)"></i>
-                        <i class="fas fa-times delete"></i>
+                        <span
+                            v-if="user.access_level == 'free'"
+                            class="downgrade"
+                            @click.prevent="updateUser(user, 'premium')"
+                        >
+                            <i class="fas fa-arrow-circle-up"></i>upgrade
+                        </span>
+                        <span
+                            v-else
+                            class="upgrade"
+                            @click.prevent="updateUser(user, 'free')"
+                        >
+                            <i class="fas fa-arrow-circle-down"></i>downgrade
+                        </span>
+                        <i class="fas fa-times delete" @click.prevent="deleteUser(user)"></i>
                     </td>
                 </tr>
             </tbody>
@@ -140,18 +153,24 @@ export default {
             this.user = user
             $('#addNew').modal('show')
         },
-        updateUser() {
-            let obj = this.user
+        updateUser(user, level) {
+            let obj = user
+            obj.access_level = level
             axios.put('api/users/' + obj.id, obj)
             .then(({data}) => {
                 console.log('usuário atualizado', data)
-                $('#addNew').modal('hide')
-                this.user = {
-                    name: '',
-                    msisdn: '',
-                    password: '',
-                    access_level: 'free'
-                }
+                let index = this.users.indexOf(user)
+                this.users[index] = obj
+            }).catch((err) => {
+                console.log(err)
+            });
+        },
+        deleteUser(user) {
+            axios.delete('api/users/' + user.id)
+            .then(({data}) => {
+                console.log('usuario excluído', data)
+                let index = this.users.indexOf(user)
+                this.users.splice(index, 1)
             }).catch((err) => {
                 console.log(err)
             });
@@ -167,10 +186,12 @@ export default {
     padding-right: 6px;
     cursor: pointer;
 }
-.table-actions i.edit {
+.table-actions span {
     color: #3498db;
+    cursor:  ;
 }
 .table-actions i.delete {
+    float: right;
     color: #e74c3c;
 }
 </style>
