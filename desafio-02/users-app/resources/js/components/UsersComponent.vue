@@ -136,12 +136,25 @@ export default {
             });
         },
         editModal(user) {
-            this.editModal = true
+            this.editMode = true
             this.user = user
             $('#addNew').modal('show')
         },
         updateUser() {
-
+            let obj = this.user
+            axios.put('api/users/' + obj.id, obj)
+            .then(({data}) => {
+                console.log('usuário atualizado', data)
+                $('#addNew').modal('hide')
+                this.user = {
+                    name: '',
+                    msisdn: '',
+                    password: '',
+                    access_level: 'free'
+                }
+            }).catch((err) => {
+                console.log(err)
+            });
         }
     }
 }

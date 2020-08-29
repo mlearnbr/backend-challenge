@@ -1873,11 +1873,28 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     editModal: function editModal(user) {
-      this.editModal = true;
+      this.editMode = true;
       this.user = user;
       $('#addNew').modal('show');
     },
-    updateUser: function updateUser() {}
+    updateUser: function updateUser() {
+      var _this3 = this;
+
+      var obj = this.user;
+      axios.put('api/users/' + obj.id, obj).then(function (_ref3) {
+        var data = _ref3.data;
+        console.log('usuário atualizado', data);
+        $('#addNew').modal('hide');
+        _this3.user = {
+          name: '',
+          msisdn: '',
+          password: '',
+          access_level: 'free'
+        };
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    }
   }
 });
 
