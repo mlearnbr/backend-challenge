@@ -91,11 +91,7 @@
     </div>
 </template>
 <script>
-import UserAdd from './UserAddComponent'
 export default {
-    components: [
-        UserAdd
-    ],
     data() {
         return {
             users: [],
@@ -123,7 +119,13 @@ export default {
             $('#addNew').modal('show')
         },
         createUser() {
-
+            let obj = this.user
+            axios.post('api/users')
+            .then(({data}) => {
+                console.log('usuário criado', data)
+            }).catch((err) => {
+                console.log(err)
+            });
         },
         editModal(user) {
             this.editModal = true
