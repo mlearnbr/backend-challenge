@@ -18,7 +18,7 @@
     </head>
     <body>
         <div id="app">
-            <div class="container">
+            <div class="container" style="margin-top: 20px;">
                 <ROUTER-VIEW></ROUTER-VIEW>
             </div>
         </div>
