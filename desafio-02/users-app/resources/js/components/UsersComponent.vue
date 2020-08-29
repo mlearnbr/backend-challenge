@@ -120,9 +120,17 @@ export default {
         },
         createUser() {
             let obj = this.user
-            axios.post('api/users')
+            axios.post('api/users', obj)
             .then(({data}) => {
                 console.log('usuário criado', data)
+                this.users.push(data.data)
+                $('#addNew').modal('hide')
+                this.user = {
+                    name: '',
+                    msisdn: '',
+                    password: '',
+                    access_level: 'free'
+                }
             }).catch((err) => {
                 console.log(err)
             });

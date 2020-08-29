@@ -1852,10 +1852,22 @@ __webpack_require__.r(__webpack_exports__);
       $('#addNew').modal('show');
     },
     createUser: function createUser() {
+      var _this2 = this;
+
       var obj = this.user;
-      axios.post('api/users').then(function (_ref2) {
+      axios.post('api/users', obj).then(function (_ref2) {
         var data = _ref2.data;
         console.log('usuário criado', data);
+
+        _this2.users.push(data.data);
+
+        $('#addNew').modal('hide');
+        _this2.user = {
+          name: '',
+          msisdn: '',
+          password: '',
+          access_level: 'free'
+        };
       })["catch"](function (err) {
         console.log(err);
       });
