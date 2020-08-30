@@ -25,6 +25,7 @@ O objetivo deste desafio é criar uma aplicação de gestão de usuários e inte
 2. Instale
 ```
 composer install
+npm install
 ```
 3. Crie uma cópia do arquivo .env.example e renomeie para .env
 4. Configure o acesso ao seu banco de dados no .env
