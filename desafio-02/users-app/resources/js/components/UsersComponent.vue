@@ -17,14 +17,14 @@
                     <td>{{ user.access_level }}</td>
                     <td class="table-actions">
                         <span
-                            v-if="user.access_level == 'free'"
+                            v-show="user.access_level == 'free'"
                             class="downgrade"
                             @click.prevent="updateUser(user, 'premium')"
                         >
                             <i class="fas fa-arrow-circle-up"></i>upgrade
                         </span>
                         <span
-                            v-else
+                            v-show="user.access_level == 'premium'"
                             class="upgrade"
                             @click.prevent="updateUser(user, 'free')"
                         >

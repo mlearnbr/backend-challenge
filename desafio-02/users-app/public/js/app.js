@@ -38238,39 +38238,55 @@ var render = function() {
             _c("td", [_vm._v(_vm._s(user.access_level))]),
             _vm._v(" "),
             _c("td", { staticClass: "table-actions" }, [
-              user.access_level == "free"
-                ? _c(
-                    "span",
+              _c(
+                "span",
+                {
+                  directives: [
                     {
-                      staticClass: "downgrade",
-                      on: {
-                        click: function($event) {
-                          $event.preventDefault()
-                          return _vm.updateUser(user, "premium")
-                        }
-                      }
-                    },
-                    [
-                      _c("i", { staticClass: "fas fa-arrow-circle-up" }),
-                      _vm._v("upgrade\n                    ")
-                    ]
-                  )
-                : _c(
-                    "span",
+                      name: "show",
+                      rawName: "v-show",
+                      value: user.access_level == "free",
+                      expression: "user.access_level == 'free'"
+                    }
+                  ],
+                  staticClass: "downgrade",
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.updateUser(user, "premium")
+                    }
+                  }
+                },
+                [
+                  _c("i", { staticClass: "fas fa-arrow-circle-up" }),
+                  _vm._v("upgrade\n                    ")
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "span",
+                {
+                  directives: [
                     {
-                      staticClass: "upgrade",
-                      on: {
-                        click: function($event) {
-                          $event.preventDefault()
-                          return _vm.updateUser(user, "free")
-                        }
-                      }
-                    },
-                    [
-                      _c("i", { staticClass: "fas fa-arrow-circle-down" }),
-                      _vm._v("downgrade\n                    ")
-                    ]
-                  ),
+                      name: "show",
+                      rawName: "v-show",
+                      value: user.access_level == "premium",
+                      expression: "user.access_level == 'premium'"
+                    }
+                  ],
+                  staticClass: "upgrade",
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.updateUser(user, "free")
+                    }
+                  }
+                },
+                [
+                  _c("i", { staticClass: "fas fa-arrow-circle-down" }),
+                  _vm._v("downgrade\n                    ")
+                ]
+              ),
               _vm._v(" "),
               _c("i", {
                 staticClass: "fas fa-times delete",

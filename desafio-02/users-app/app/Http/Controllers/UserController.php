@@ -103,6 +103,28 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $user->update($request->all());
+
+        $myBody = [
+            'msisdn' => $request->msisdn,
+            'external_id' => $id
+        ];
+        $request = $this->client->request('GET', $this->mLearnServiceId."/users?external_id=".$id,  [
+            'form_params' => $myBody
+        ]);
+        $response = json_decode($request->getBody());
+        $mLearn_id = $response->data->id;
+        if ($user->access_level == 'free') {
+            // downgrade
+            $request = $this->client->request('PUT', $this->mLearnServiceId."/users"."/".$mLearn_id."/downgrade");
+            /* $response = $request->getBody()->getContents();
+            return $response; */
+        } else {
+            // upgrade
+            $request = $this->client->request('PUT', $this->mLearnServiceId."/users"."/".$mLearn_id."/upgrade");
+            /* $response = $request->getBody()->getContents();
+            return $response; */
+        }
+
         return new UserResource($user);
     }
 
