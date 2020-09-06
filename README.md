@@ -14,14 +14,12 @@ $matriz = [
 
 function diferencaEntreSomaDiagonais($matriz) {
     $linhas = count($matriz);
-    foreach($matriz as $m) {
-        if (count($m) !== $linhas) {
-            return false;
-        }
-    }
     $x = 0;
     $y = 0;
     for ($i = 0, $j = $linhas - 1; $i < $linhas; $i++, $j--) {
+        if (count($matriz[$i]) !== $linhas) {
+            return false;
+        }
         $x += $matriz[$i][$i];
         $y += $matriz[$i][$j];
     }
