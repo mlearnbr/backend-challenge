@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::redirect('/', '/users');
+
+Route::resource('users', 'UserController')->except([
+    'edit', 'update', 'show', 'destroy'
+]);
+
+Route::get('/users/{user}/toggle_access', 'UserController@toggleAccessLevel')->name('users.toggle_access');

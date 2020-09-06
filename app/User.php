@@ -3,7 +3,6 @@
 namespace App;
 
 use App\Http\Traits\Uuid;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -28,5 +27,19 @@ class User extends Authenticatable
     protected $hidden = [
         'password'
     ];
+
+    public function upgrade(): User
+    {
+        $this->access_level = 'premium';
+        $this->save();
+        return $this;
+    }
+
+    public function downgrade(): User
+    {
+        $this->access_level = 'free';
+        $this->save();
+        return $this;
+    }
 
 }
