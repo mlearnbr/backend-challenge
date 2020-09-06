@@ -23,11 +23,11 @@
         </tr>
         </thead>
         <tbody>
-        @empty($users)
+        @if(count($users) === 0)
             <tr>
                 <td colspan="4">Não foram encontrados resultados.</td>
             </tr>
-        @endempty
+        @endif
         @foreach($users as $user)
             <tr>
                 <td>{{ $user->msisdn }}</td>

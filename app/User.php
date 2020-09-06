@@ -28,18 +28,16 @@ class User extends Authenticatable
         'password'
     ];
 
-    public function upgrade(): User
+    public function upgrade(): void
     {
         $this->access_level = 'premium';
         $this->save();
-        return $this;
     }
 
-    public function downgrade(): User
+    public function downgrade(): void
     {
         $this->access_level = 'free';
         $this->save();
-        return $this;
     }
 
 }

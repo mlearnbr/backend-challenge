@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\AccessLevelUpdated;
 use App\Events\UserCreated;
 use App\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -66,13 +68,21 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * @param Request $request
+     * @param User $user
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function toggleAccessLevel(Request $request, User $user)
     {
+        $upgrade = false;
         if ($user->access_level === 'free') {
             $user->upgrade();
+            $upgrade = true;
         } else {
             $user->downgrade();
         }
+        event(new AccessLevelUpdated($user, $upgrade));
         $request->session()->flash('success', "O nível de acesso do usuário {$user->name} foi alterado com sucesso");
         return redirect()->route('users.index');
     }

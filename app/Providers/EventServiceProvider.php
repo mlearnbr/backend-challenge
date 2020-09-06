@@ -20,6 +20,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\UserCreated' => [
             'App\Listeners\CreateApiUser'
+        ],
+        'App\Events\AccessLevelUpdated' => [
+            'App\Listeners\UpdateAccessLevelOnApi'
         ]
     ];
 
