@@ -20,41 +20,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3eea431f-b2a2-458e-8609-3ed63bf9f32c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/public/assets/css/core.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/css/custom.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/plugins/bootstrap/css/bootstrap.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/plugins/bootstrap/css/bootstrap.min.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/plugins/bootstrap/js/bootstrap.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/plugins/bootstrap/js/bootstrap.min.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/plugins/fonts/fontAwesome.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/plugins/fonts/google-sans/ProductSans-Black.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/plugins/fonts/google-sans/ProductSans-BlackItalic.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/plugins/fonts/google-sans/ProductSans-Bold.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/plugins/fonts/google-sans/ProductSans-BoldItalic.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/plugins/fonts/google-sans/ProductSans-Italic.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/plugins/fonts/google-sans/ProductSans-Light.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/plugins/fonts/google-sans/ProductSans-LightItalic.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/plugins/fonts/google-sans/ProductSans-Medium.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/plugins/fonts/google-sans/ProductSans-MediumItalic.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/plugins/fonts/google-sans/ProductSans-Regular.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/plugins/fonts/google-sans/ProductSans-Thin.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/plugins/fonts/google-sans/ProductSans-ThinItalic.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/plugins/fonts/google-sans/style.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/plugins/jquery-3.4.1.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/plugins/jquery.easing.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/plugins/jquery.mask.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/plugins/popper.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Usuarios.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/ServicesApi.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Usuarios.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Usuarios.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_100000_create_password_resets_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2014_10_12_100000_create_password_resets_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/user/view.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/view.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution />
   </component>
@@ -172,19 +149,21 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/assets/plugins" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/Http/Controllers" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\GIT\backend-challenge\public\assets\js" />
-      <recent name="D:\GIT\backend-challenge\resources\views" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\GIT\backend-challenge\app\Http\Controllers" />
       <recent name="D:\GIT\backend-challenge\public\assets\plugins" />
       <recent name="D:\GIT\backend-challenge\resources\views" />
       <recent name="D:\GIT\backend-challenge\resources" />
       <recent name="D:\GIT\backend-challenge\public\assets" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\GIT\backend-challenge\app" />
+      <recent name="D:\GIT\backend-challenge\public\assets\js" />
+      <recent name="D:\GIT\backend-challenge\resources\views" />
     </key>
   </component>
   <component name="RunManager">
@@ -201,7 +180,9 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1599709463477</updated>
-      <workItem from="1599709465579" duration="5939000" />
+      <workItem from="1599709465579" duration="6259000" />
+      <workItem from="1599741140636" duration="5831000" />
+      <workItem from="1599746984012" duration="1394000" />
     </task>
     <servers />
   </component>
@@ -218,15 +199,24 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="690" y="275" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1599713639736">
+    <state x="587" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1599743729619">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="690" y="275" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1599713639736" />
-    <state x="794" y="443" key="NewPhpFileDialog" timestamp="1599711678137">
+    <state x="587" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1599743729619" />
+    <state x="690" y="275" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1599741447419">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="794" y="443" key="NewPhpFileDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1599711678137" />
+    <state x="690" y="275" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1599741447419" />
+    <state x="794" y="443" key="NewPhpFileDialog" timestamp="1599742393854">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="794" y="443" key="NewPhpFileDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1599742393854" />
+    <state x="616" y="240" width="672" height="677" key="run.anything.popup" timestamp="1599743813735">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="616" y="240" width="672" height="677" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1599743813735" />
   </component>
 </project>

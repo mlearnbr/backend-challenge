@@ -9,7 +9,7 @@ class Usuarios extends Model
     protected $table = "tb_usuarios";
 
     protected $fillable = [
-        'no_usuario', 'ds_email', 'ds_password',
+        'no_usuario', 'nu_telefone', 'ds_email', 'ds_password',
     ];
 
     protected $hidden = [
