@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Repositories\MLearnRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Throwable;
 
@@ -57,8 +58,8 @@ class UserController extends Controller
             $user = User::create($validatedData);
 
             $user->save();
-
             $this->mlearnRepository->createUser($user);
+            $user->fill(['password' => Hash::make($user->passowrd)])->save();
 
             DB::commit();
 
