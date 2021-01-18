@@ -30,4 +30,11 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'mlearn' => [
+        'base_url' => env('MLEARN_BASE_URL'),
+        'token' => env('MLEARN_TOKEN'),
+        'service_id' => env('MLEARN_SERVICE_ID'),
+        'app_users_group_id' => env('MLEARN_APP_USERS_GROUP_ID'),
+    ],
+
 ];

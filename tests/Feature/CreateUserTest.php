@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\User;
+use App\Repositories\MLearnRepositoryInterface;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
@@ -24,10 +25,17 @@ class CreateUserTest extends TestCase
             'password' => '123',
             'password_confirmation' => '123',
         ]);
-        $response = $this->from('/users/create')
-            ->post('/users', $userData);
 
-        $response->assertRedirect('/users');
+        $this->mock(MLearnRepositoryInterface::class, function ($mock) {
+            return $mock->shouldReceive('createUser')
+                ->once()
+                ->andReturn(true);
+        });
+
+        $response = $this->from(route('users.create'))
+            ->post(route('users.store'), $userData);
+
+        $response->assertRedirect(route('users.index'));
     }
 
     public function testUserCreationFailing()
@@ -37,9 +45,14 @@ class CreateUserTest extends TestCase
             'password' => '123',
             'password_confirmation' => '1234',
         ]);
-        $response = $this->from('/users/create')
-            ->post('/users', $userData);
 
-        $response->assertRedirect('/users/create');
+        $this->mock(MLearnRepositoryInterface::class, function ($mock) {
+            return $mock->shouldNotReceive('createUser');
+        });
+
+        $response = $this->from(route('users.create'))
+            ->post(route('users.store'), $userData);
+
+        $response->assertRedirect(route('users.create'));
     }
 }
