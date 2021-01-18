@@ -10,6 +10,10 @@
       </div>
     @endif
 
+    <div>
+      <a style="margin: 19px;" href="{{ route('users.create') }}" class="btn btn-primary">Novo usuário</a>
+    </div>
+
     <table class="table table-striped">
       <thead>
         <tr>

@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
+use Throwable;
 
 class UserController extends Controller
 {
@@ -26,7 +30,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('users.create', [
+            'access_levels' => config('enums.access_levels'),
+        ]);
     }
 
     /**
@@ -35,9 +41,25 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
-        //
+        try {
+            $validatedData = $request->validated();
+
+            $user = User::create($validatedData);
+
+            $user->save();
+
+            return redirect()->route('users.index')->with('success', "Usuário criado com sucesso!");
+        } catch (Throwable $e) {
+            $response = redirect()->back()
+                ->withInput()
+                ->with('error', "Falha ao criar usuário. Corrija os dados e tente novamente.");
+            if ($e instanceof ValidationException) {
+                $response->withErrors($e->errors());
+            }
+            return $response;
+        }
     }
 
     /**

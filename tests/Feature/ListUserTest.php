@@ -13,7 +13,7 @@ class ListUserTest extends TestCase
     public function testUserListing()
     {
         $user = User::factory()->create([
-            'msisdn' => '+55999123456',
+            'msisdn' => '+5599912345678',
             'name' => 'João da Silva',
         ]);
 
