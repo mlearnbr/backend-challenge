@@ -12,7 +12,7 @@ final class MLearnRepository implements MLearnRepositoryInterface
         return strtr('{base_url}/integrator/{service_id}/{route}', [
             '{base_url}' => config('services.mlearn.base_url'),
             '{service_id}' => config('services.mlearn.service_id'),
-            '{route}' => $route,
+            '{route}' => ltrim($route, '/'),
         ]);
     }
 
@@ -34,10 +34,34 @@ final class MLearnRepository implements MLearnRepositoryInterface
             'password' => $user->password,
         ])->throw();
 
-        if ($response->successful()) {
-            $user->mlearn_id = $response['data']['id'];
-            return $user->save();
+        if (!$response->successful()) {
+            return false;
         }
-        return false;
+
+        $user->mlearn_id = $response['data']['id'];
+        return $user->save();
+    }
+
+    private function toggleUserAccessLevel(User $user, string $type)
+    {
+        $response = $this->getApiClient()->put($this->fullUrl('users/' . $user->mlearn_id . '/' . $type))
+            ->throw();
+
+        if (!$response->successful()) {
+            return false;
+        }
+
+        $user->access_level = $response['data']['access_level'];
+        return $user->save();
+    }
+
+    public function upgradeUser(User $user): bool
+    {
+        return $this->toggleUserAccessLevel($user, 'upgrade');
+    }
+
+    public function downgradeUser(User $user): bool
+    {
+        return $this->toggleUserAccessLevel($user, 'downgrade');
     }
 }

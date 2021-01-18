@@ -78,48 +78,15 @@ class UserController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function show(User $user)
+    public function upgrade(Request $request, User $user)
     {
-        //
+        $this->mlearnRepository->upgradeUser($user);
+        return redirect()->route('users.index')->with('success', 'Nível de acesso alterado para ' . config('enums.access_levels')[$user->access_level]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(User $user)
+    public function downgrade(Request $request, User $user)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, User $user)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(User $user)
-    {
-        //
+        $this->mlearnRepository->downgradeUser($user);
+        return redirect()->route('users.index')->with('success', 'Nível de acesso alterado para ' . config('enums.access_levels')[$user->access_level]);
     }
 }

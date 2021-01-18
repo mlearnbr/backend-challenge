@@ -15,3 +15,6 @@ use App\Http\Controllers\UserController;
 */
 
 Route::resource('users', UserController::class);
+
+Route::put('/users/{user}/upgrade', [UserController::class, 'upgrade'])->name('users.upgrade');
+Route::put('/users/{user}/downgrade', [UserController::class, 'downgrade'])->name('users.downgrade');
