@@ -25,7 +25,7 @@ class StoreUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'msisdn' => ['required', 'unique:users', 'regex:#\+55[0-9]{11}#'],
+            'msisdn' => ['required', 'unique:users', 'regex:#\+[0-9]{13}#'],
             'name' => 'required',
             'access_level' => ['required', Rule::in(array_keys(config('enums.access_levels')))],
             'password' => ['nullable', 'confirmed'],

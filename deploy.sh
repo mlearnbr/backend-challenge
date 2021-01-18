@@ -9,5 +9,8 @@ composer install
 # run migrations
 php artisan migrate
 
+php artisan key:generate
+php artisan config:cache
+
 # serve
 php artisan serve
