@@ -3,11 +3,15 @@
 namespace App\Repositories;
 
 use App\Models\User;
+use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Facades\Http;
 
 final class MLearnRepository implements MLearnRepositoryInterface
 {
-    public function fullUrl($route)
+    /**
+     * Builds the full url to be requested.
+     */
+    public function fullUrl(string $route): string
     {
         return strtr('{base_url}/integrator/{service_id}/{route}', [
             '{base_url}' => config('services.mlearn.base_url'),
@@ -16,7 +20,10 @@ final class MLearnRepository implements MLearnRepositoryInterface
         ]);
     }
 
-    public function getApiClient()
+    /**
+     * Returns a PendingRequest with proper headers.
+     */
+    public function getApiClient(): PendingRequest
     {
         return Http::withToken(config('services.mlearn.token'))
             ->withHeaders([
@@ -42,7 +49,10 @@ final class MLearnRepository implements MLearnRepositoryInterface
         return $user->save();
     }
 
-    private function toggleUserAccessLevel(User $user, string $type)
+    /**
+     * Toggles User access_level.
+     */
+    private function toggleUserAccessLevel(User $user, string $type): bool
     {
         $response = $this->getApiClient()->put($this->fullUrl('users/' . $user->mlearn_id . '/' . $type))
             ->throw();

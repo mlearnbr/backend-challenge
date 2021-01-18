@@ -14,6 +14,8 @@ use App\Http\Controllers\UserController;
 |
 */
 
+Route::redirect('/', 'users');
+
 Route::resource('users', UserController::class);
 
 Route::put('/users/{user}/upgrade', [UserController::class, 'upgrade'])->name('users.upgrade');

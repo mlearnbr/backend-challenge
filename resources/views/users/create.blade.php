@@ -6,9 +6,9 @@
     <h1 class="display-3">Adicionar usuário</h1>
     <div>
       @if ($errors->any())
-        <div class="alert alert-danger" role="alert">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">×</span>
+            <span aria-hidden="true">&times;</span>
           </button>
           <ul>
             @foreach ($errors->all() as $error)
@@ -34,7 +34,7 @@
           <label for="access_level">Nível de acesso *</label>
           <select class="form-control" id="access_level" name="access_level">
             @foreach($access_levels as $level => $level_label)
-              <option value="{{ $level }}">{{ $level_label }}</option>
+              <option value="{{ $level }}" @if (old('access_level') === $level) selected @endif>{{ $level_label }}</option>
             @endforeach
           </select>
         </div>

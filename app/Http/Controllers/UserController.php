@@ -78,12 +78,18 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * Upgrade user.
+     */
     public function upgrade(Request $request, User $user)
     {
         $this->mlearnRepository->upgradeUser($user);
         return redirect()->route('users.index')->with('success', 'Nível de acesso alterado para ' . config('enums.access_levels')[$user->access_level]);
     }
 
+    /**
+     * Downgrade user.
+     */
     public function downgrade(Request $request, User $user)
     {
         $this->mlearnRepository->downgradeUser($user);
