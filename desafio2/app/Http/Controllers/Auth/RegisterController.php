@@ -5,9 +5,12 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Helpers\NotificationHelper;
+use App\Helpers\ApiMLearnHelper;
 
 class RegisterController extends Controller
 {
@@ -83,9 +86,8 @@ class RegisterController extends Controller
                 'A senha e a confirmação de senha não coincidem.',
         ];
 
-        Validator::make($data, $rules, $messages)->validate();
+        return Validator::make($data, $rules, $messages);
 
-        return $next($request);
     }
 
     /**
@@ -95,12 +97,41 @@ class RegisterController extends Controller
      * @return \App\Models\User
      */
     protected function create(array $data)
-    {
-        return User::create([
-            'name' => $data['name'],
-            'access_level' => $data['access_level'],
-            'msisdn' => $data['msisdn'],
-            'password' => Hash::make($data['password']),
-        ]);
+    {        
+        $data['password'] = Hash::make($data['password']);
+
+        try {
+            DB::beginTransaction();
+            $user = User::create($data);
+
+            $user->save();
+
+            $responseApi = json_decode(ApiMLearnHelper::createUser($user));            
+            
+            if(isset($responseApi->status_code) && ($responseApi->status_code == 400 || $responseApi->status_code == 422)){                 
+                throw new Exception();
+            }else{
+
+                $user->user_id = $responseApi->data->id;
+
+                $user->save();
+
+                DB::commit();
+                NotificationHelper::sendNotification(
+                    'success',
+                    'Usuário adicionado com sucesso.'
+                );
+
+                return $user;
+            }
+        } catch (Exception $e) {                              
+            DB::rollback();
+            NotificationHelper::sendNotification(
+                'error',
+                'Não foi possível adicionar este usuário. Verifique os dados informados e tente novamente!'
+            );
+
+            return back()->withInput();
+        }        
     }
 }

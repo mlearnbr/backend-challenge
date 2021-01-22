@@ -7,8 +7,10 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Helpers\NotificationHelper;
+use App\Helpers\ApiMLearnHelper;
 
 class UserController extends Controller
 {
@@ -26,7 +28,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        $data['password'] = bcrypt($data['password']);
+        $data['password'] = Hash::make($data['password']);
         
         try {
             DB::beginTransaction();
@@ -34,14 +36,25 @@ class UserController extends Controller
 
             $user->save();
 
-            DB::commit();
-            NotificationHelper::sendNotification(
-                'success',
-                'Usuário administardor adicionado com sucesso.'
-            );
+            $responseApi = json_decode(ApiMLearnHelper::createUser($user));            
 
-            return redirect('users');
-        } catch (Exception $e) {
+            if(isset($responseApi->status_code)){            
+                throw new Exception();
+            }else{
+
+                $user->user_id = $responseApi->data->id;
+
+                $user->save();
+
+                DB::commit();
+                NotificationHelper::sendNotification(
+                    'success',
+                    'Usuário adicionado com sucesso.'
+                );
+
+                return redirect('users');
+            }
+        } catch (Exception $e) {                              
             DB::rollback();
             NotificationHelper::sendNotification(
                 'error',
@@ -50,32 +63,7 @@ class UserController extends Controller
 
             return back()->withInput();
         }
-    }
-
-    public function edit(Request $request, $id)
-    {
-        $user = User::with('areas')->find($id);
-
-        if ($user->role->name === 'administrator') {
-            $roles = Role::orderBy('label', 'asc')->get();
-            $companies = Company::orderBy('name', 'asc')->get();
-        } else {
-            $roles = Role::where('name', '!=', 'administrator')
-                ->orderBy('label', 'asc')
-                ->get();
-                $company = Company::find($user->company_id);
-        
-                $areas = Area::where('company_id', $user->company_id)->orderBy('name', 'asc')->get();
-        }
-
-        return view('users.form', [
-            'user' => $user,
-            'roles' => $roles,
-            'companies' => isset($companies) ? $companies : [],
-            'company' => isset($company) ? $company : '',
-            'areas' => isset($areas) ? $areas : '',
-        ]);
-    }
+    }   
 
     public function upgrade($id)
     {
@@ -87,15 +75,21 @@ class UserController extends Controller
             DB::beginTransaction();
             $user->update($data);
 
-            DB::commit();
-            NotificationHelper::sendNotification(
-                'success',
-                'Upgrade de Usuário executado com sucesso.'
-            );
+            $responseApi = json_decode(ApiMLearnHelper::upgradeDowngrade($user->user_id, 'upgrade'));             
 
-            return redirect('users');
-        } catch (Exception $e) {
-            dd($e);
+            if(isset($responseApi->status_code)){            
+                throw new Exception();
+            }else{
+
+                DB::commit();
+                NotificationHelper::sendNotification(
+                    'success',
+                    'Upgrade de Usuário executado com sucesso.'
+                );
+
+                return redirect('users');
+            }
+        } catch (Exception $e) {            
             DB::rollback();
             NotificationHelper::sendNotification(
                 'error',
@@ -116,15 +110,20 @@ class UserController extends Controller
             DB::beginTransaction();
             $user->update($data);
 
-            DB::commit();
-            NotificationHelper::sendNotification(
-                'success',
-                'Downgrade de Usuário executado com sucesso.'
-            );
+            $responseApi = json_decode(ApiMLearnHelper::upgradeDowngrade($user->user_id, 'downgrade'));                        
+            if(isset($responseApi->status_code)){            
+                throw new Exception();
+            }else{
 
-            return redirect('users');
-        } catch (Exception $e) {
-            dd($e);
+                DB::commit();
+                NotificationHelper::sendNotification(
+                    'success',
+                    'Downgrade de Usuário executado com sucesso.'
+                );
+
+                return redirect('users');
+            }
+        } catch (Exception $e) {            
             DB::rollback();
             NotificationHelper::sendNotification(
                 'error',

@@ -20,7 +20,8 @@ class User extends Authenticatable
         'name',
         'msisdn',
         'password',
-        'access_level'
+        'access_level',
+        'user_id'
     ];
 
     public function setAttribute($key, $value)
