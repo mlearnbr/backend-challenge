@@ -34,7 +34,7 @@ class UserRegister extends Component
         ];
 
         $register = UserServices::create($user);
-        
+
         if ( $register ) {
             redirect()->route('users.index');
         }        

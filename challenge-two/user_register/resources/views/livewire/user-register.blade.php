@@ -4,6 +4,9 @@
             <h5 class="font-bold uppercase text-gray-600">Cadastro de usuário</h5>
         </div>
         <div class="p-5">
+            <div wire:loading wire:target="submit">
+                Processando
+            </div>
             <form wire:submit.prevent="submit">
                 <div class="grid grid-cols-2 mb-6">
                     <div class="mr-1">

@@ -12,17 +12,19 @@ class UserList extends Component
 
     public function upgrade($access_id)
     {
-
+        $user = UserServices::updagreAccount($access_id);
+        $this->users->firstWhere('access_id', $access_id)->account = $user->account;
     }
 
     public function downgrade($access_id)
     {
-
+        $user = UserServices::downgradeAccount($access_id);
+        $this->users->firstWhere('access_id', $access_id)->account = $user->account;
     }
 
     public function mount()
     {
-        $this->users = User::all();
+        $this->users = User::orderBy('id', 'DESC')->get();
     }
 
     public function render()

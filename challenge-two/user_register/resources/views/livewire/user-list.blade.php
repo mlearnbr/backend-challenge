@@ -4,6 +4,12 @@
             <h5 class="font-bold uppercase text-gray-600">Listagem de usuários</h5>
         </div>
         <div class="p-5">
+            <div wire:loading wire:target="downgrade">
+                Processando
+            </div>
+            <div wire:loading wire:target="upgrade">
+                Processando
+            </div>
             @if(count($users) > 0 )
                 <table class="w-full p-5 text-gray-700">
                     <thead>
