@@ -8,7 +8,7 @@
                 <div class="card-header">Lista dos usuários </div>
 
                 <div class="card-body table-striped">
-                    <a class='btn btn-info' href="{{ url('/register') }}">
+                    <a class='btn btn-info' href="{{ url('users/create') }}">
                         <i class="fa fa-add" aria-hidden="true"></i> Add new user
                     </a>
                     <p>

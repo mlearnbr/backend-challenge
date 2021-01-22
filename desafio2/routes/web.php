@@ -14,9 +14,21 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth/login');
 });
+
+Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'login'])->name('login');
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home.index');
+    Route::get('/users', [App\Http\Controllers\UserController::class, 'index'])->name('users.index');
+
+    Route::group(['prefix' => 'users'], function () {
+        Route::get('/create', [\App\Http\Controllers\UserController::class, 'create'])->name('users.create');
+        Route::post('/', [\App\Http\Controllers\UserController::class, 'store'])
+            ->name('users.store')
+            ->middleware('store.user.validation');
+    });
+});
