@@ -1,0 +1,31 @@
+{
+  "name": "backend-challenge",
+  "version": "1.0.0",
+  "description": "Esse repositório é o nosso desafio para avaliar o quão bom desenvolvedor back-end você é.",
+  "main": "src/server.js",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.15.4",
+    "express-validator": "^6.9.2",
+    "mongoose": "^5.0.16",
+    "redis": "^2.8.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.3"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jlaurosouza/backend-challenge.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jlaurosouza/backend-challenge/issues"
+  },
+  "homepage": "https://github.com/jlaurosouza/backend-challenge#readme"
+}
