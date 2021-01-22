@@ -22,6 +22,7 @@ Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'login'
 Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
+    Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home.index');
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home.index');
     Route::get('/users', [App\Http\Controllers\UserController::class, 'index'])->name('users.index');
 
