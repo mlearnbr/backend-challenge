@@ -23,7 +23,7 @@ foreach ( $matrix as $key => $row ) {
 }
 
 if ( $error ) {
-    echo 'Desculpe! Aparentemente está não é uma Matriz Quadrada';
+    echo "Desculpe! Aparentemente está não é uma Matriz Quadrada \n";
     exit;
 }
 
