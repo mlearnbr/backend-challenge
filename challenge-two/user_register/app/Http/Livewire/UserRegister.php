@@ -17,7 +17,7 @@ class UserRegister extends Component
     protected $rules = [
         'name' => 'required',
         'email' => 'required|email|unique:users,email',
-        'phone' => 'required|digits:14',
+        'phone' => 'required|unique:users,phone',
         'pass' => 'required',
     ];
 
@@ -25,19 +25,25 @@ class UserRegister extends Component
     {
         $this->validate();
 
-        $user = [
-            'name' => $this->name,
-            'email' => $this->email,
-            'phone' => str_replace('-', '', str_replace(' ', '', str_replace('(', '', str_replace(')', '', $this->phone)))),
-            'password' => Hash::make($this->pass),
-            'account' => $this->account
-        ];
-
-        $register = UserServices::create($user);
-
-        if ( $register ) {
-            redirect()->route('users.index');
-        }        
+        $phone = str_replace('-', '', str_replace(' ', '', str_replace('(', '', str_replace(')', '', $this->phone))));
+        
+        if(strlen($phone) == 14 ) {
+            $user = [
+                'name' => $this->name,
+                'email' => $this->email,
+                'phone' => str_replace('-', '', str_replace(' ', '', str_replace('(', '', str_replace(')', '', $this->phone)))),
+                'password' => Hash::make($this->pass),
+                'account' => $this->account
+            ];
+    
+            $register = UserServices::create($user);
+    
+            if ( $register ) {
+                redirect()->route('users.index');
+            }        
+        }
+        
+        $this->addError('phone', 'Phone number is invalid.');
     }
 
     public function render()
