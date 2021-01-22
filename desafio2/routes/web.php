@@ -30,5 +30,11 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/', [\App\Http\Controllers\UserController::class, 'store'])
             ->name('users.store')
             ->middleware('store.user.validation');
+        Route::get('{id}/upgrade', [\App\Http\Controllers\UserController::class, 'upgrade'])
+            ->name('users.upgrade')
+            ->middleware(['user.exists']);
+        Route::get('{id}/downgrade', [\App\Http\Controllers\UserController::class, 'downgrade'])
+            ->name('users.downgrade')
+            ->middleware(['user.exists']);
     });
 });

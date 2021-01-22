@@ -15,8 +15,8 @@ class StoreUserValidation
             'name' => ['required', 'min:1', 'max:255'],
             'msisdn' => [
                 'required',
-                'min:1',
-                'max:255',
+                'min:13',
+                'max:14',
                 'unique:users,msisdn,NULL,id,deleted_at,NULL',
             ],
             'access_level' => ['required'],
@@ -28,14 +28,14 @@ class StoreUserValidation
             'name.min' => 'O nome do usuário deve ter, no mínimo, 1 caractere.',
             'name.max' =>
                 'O nome do usuário deve ter, no máximo, 255 caracteres.',
-            'msisdn.required' => 'Informe o e-mail do usuário.',
+            'msisdn.required' => 'Informe o fone(msisdn) do usuário.',
             'msisdn.min' =>
-                'O e-mail do usuário deve ter, no mínimo, 1 caractere.',
+                'O fone(msisdn) do usuário deve ter, no mínimo, 13 caractere.',
             'msisdn.max' =>
-                'O e-mail do usuário deve ter, no máximo, 255 caracteres.',
+                'O fone(msisdn) do usuário deve ter, no máximo, 14 caracteres.',
             'msisdn.unique' =>
-                'Já existe um usuário cadastrado com este e-mail. Verifique os dados informados e tente novamente.',
-            'access_level.required' => 'Informe o nívl de acesso.',
+                'Já existe um usuário cadastrado com este fone(msisdn). Verifique os dados informados e tente novamente.',
+            'access_level.required' => 'Informe o nível de acesso.',
             'password.required' => 'Informe a senha do usuário',
             'password.min' =>
                 'A senha do usuário deve ter, no mínimo, 6 caracteres.',

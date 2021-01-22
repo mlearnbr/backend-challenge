@@ -46,16 +46,16 @@ class LoginController extends Controller
     public function login(Request $request)
     {   
         $data = $request->all();
-        
+        $remember = true;
         $rules = [
-            'msisdn' => ['required', 'max:255', 'min:1',],
+            'msisdn' => ['required', 'max:14', 'min:13',],
             'password' => ['required', 'max:255', 'min:6'],
         ];
 
         $messages = [
-            'msisdn.required' => 'Informe o seu phone.',
-            'msisdn.max' => 'O seu e-mail deve ter, no máximo, 255 caracteres.',
-            'msisdn.min' => 'O seu e-mail deve ter, no mínimo, 1 caractere.',
+            'msisdn.required' => 'Informe o seu fone(msisdn).',
+            'msisdn.max' => 'O seu fone(msisdn) deve ter, no máximo, 14 caracteres.',
+            'msisdn.min' => 'O seu fone(msisdn) deve ter, no mínimo, 13 caractere.',
             'password.required' => 'Informe a sua senha.',
             'password.max' =>
                 'A sua senha deve ter, no máximo, 255 caracteres.',
@@ -72,7 +72,7 @@ class LoginController extends Controller
 
             $obj = [
                 'msisdn' => $request->msisdn,
-                'password' => $request->password,                
+                'password' => $request->password,                                
             ];
             
             if (
@@ -88,7 +88,7 @@ class LoginController extends Controller
             } else {
                 NotificationHelper::sendNotification(
                     'error',
-                    'Phone e/ou senha incorreto(s).'
+                    'msisdn e/ou senha incorreto(s).'
                 );
                 return back()->withInput();
             }

@@ -23,6 +23,15 @@ class User extends Authenticatable
         'access_level'
     ];
 
+    public function setAttribute($key, $value)
+    {
+        $isRememberTokenAttribute = $key == $this->getRememberTokenName();
+
+        // if (!$isRememberTokenAttribute) {
+            parent::setAttribute($key, $value);
+        // }
+    }
+
     /**
      * The attributes that should be hidden for arrays.
      *

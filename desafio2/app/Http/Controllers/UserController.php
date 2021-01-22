@@ -77,39 +77,20 @@ class UserController extends Controller
         ]);
     }
 
-    public function update(Request $request, $id)
+    public function upgrade($id)
     {
 
-        $user = User::with('areas')->find($id);
-        $data = $request->all();                     
-        $data['password'] = bcrypt($data['password']);
+        $user = User::find($id);
+        $data['access_level'] = 'premium';
 
         try {
             DB::beginTransaction();
             $user->update($data);
 
-            if($user->role->name !== 'administrator'){
-                $areas = $data['area_array'];
-                UserAreas::where('user_id', 0)->delete();
-
-                foreach($areas as $area){
-                    if($area){                    
-                        UserAreas::create(
-                            array_merge(
-                                [
-                                    'user_id' => $user->id,
-                                    'area_id' => $area, 
-                                ]
-                            )
-                        );
-                    }
-                }
-            }
-
             DB::commit();
             NotificationHelper::sendNotification(
                 'success',
-                'Usuário editado com sucesso.'
+                'Upgrade de Usuário executado com sucesso.'
             );
 
             return redirect('users');
@@ -118,35 +99,39 @@ class UserController extends Controller
             DB::rollback();
             NotificationHelper::sendNotification(
                 'error',
-                'Não foi possível editar este usuário. Verifique os dados informados e tente novamente!'
+                'Não foi possível fazer o upgrade deste usuário. Verifique os dados informados e tente novamente!'
             );
 
             return back()->withInput();
         }
     }
 
-    public function destroy($id)
+    public function downgrade($id)
     {
+
         $user = User::find($id);
+        $data['access_level'] = 'free';
 
         try {
             DB::beginTransaction();
-            $user->delete();
+            $user->update($data);
+
             DB::commit();
             NotificationHelper::sendNotification(
                 'success',
-                'Usuário deletado com sucesso.'
+                'Downgrade de Usuário executado com sucesso.'
             );
 
             return redirect('users');
         } catch (Exception $e) {
+            dd($e);
             DB::rollback();
             NotificationHelper::sendNotification(
                 'error',
-                'Não foi possível deletar este usuário. Verifique os dados informados e tente novamente!'
+                'Não foi possível fazer o downgrade deste usuário. Verifique os dados informados e tente novamente!'
             );
 
-            return redirect('users');
+            return back()->withInput();
         }
     }
        
