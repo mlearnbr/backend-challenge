@@ -1,15 +1,12 @@
 <div class="w-full p-3">
-    <div class="bg-white border rounded shadow">
+    <div class="bg-white border rounded shadow relative">
+        <div class="loading" wire:loading wire:target="downgrade"><div></div><div></div><div></div><div></div></div>
+        <div class="loading" wire:loading wire:target="upgrade"><div></div><div></div><div></div><div></div></div>
+
         <div class="border-b p-3">
             <h5 class="font-bold uppercase text-gray-600">Listagem de usuários</h5>
         </div>
-        <div class="p-5">
-            <div wire:loading wire:target="downgrade">
-                Processando
-            </div>
-            <div wire:loading wire:target="upgrade">
-                Processando
-            </div>
+        <div class="p-5">            
             @if(count($users) > 0 )
                 <table class="w-full p-5 text-gray-700">
                     <thead>

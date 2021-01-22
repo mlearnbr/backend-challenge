@@ -1,12 +1,11 @@
 <div class="w-full p-3">
-    <div class="bg-white border rounded shadow">
+    <div class="bg-white border rounded shadow relative">
+        <div class="loading" wire:loading wire:target="submit"><div></div><div></div><div></div><div></div></div>
         <div class="border-b p-3">
             <h5 class="font-bold uppercase text-gray-600">Cadastro de usuário</h5>
         </div>
         <div class="p-5">
-            <div wire:loading wire:target="submit">
-                Processando
-            </div>
+
             <form wire:submit.prevent="submit">
                 <div class="grid grid-cols-2 mb-6">
                     <div class="mr-1">
