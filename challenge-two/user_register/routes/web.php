@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', function(){
+    return redirect()->route('users.index');
+});
+
+Route::prefix('usuarios')->group(function(){
+    Route::view('/', 'users.index')->name('users.index');
+    Route::view('/cadastrar', 'users.register')->name('users.register');
 });
