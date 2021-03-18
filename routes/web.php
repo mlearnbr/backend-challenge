@@ -15,8 +15,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', '/users');
 
+Route::get('/users/{user}/toggle_access', 'UserController@toggleAccessLevel')->name('users.toggle_access');
+
 Route::resource('users', 'UserController')->except([
     'edit', 'update', 'show', 'destroy'
 ]);
-
-Route::get('/users/{user}/toggle_access', 'UserController@toggleAccessLevel')->name('users.toggle_access');
