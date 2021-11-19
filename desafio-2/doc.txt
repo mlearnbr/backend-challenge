@@ -1,0 +1,111 @@
+Documentação
+
+----------
+
+Padrão dos endpoints
+
+Os endpoints seguem o padrão http://localhost:3001/entidade/. 
+Por exemplo, o endpoind em que o cadastro de um usuáiro é realizado será o http://localhost:3001/user/
+
+----------
+
+Retorno dos endpoints
+
+----------USER----------
+
+REGISTER: POST http://localhost:3001/user/
+
+body => 
+
+{
+    "msisdn": "+5531999999975",
+	"name": "Francisco Xablau",
+	"access_level": "pro",
+	"password": "123456",
+    "external_id": "HD73G68X"
+}
+
+response => 
+
+{
+ "data": {
+        "id": "61970139430d95d652d67a99",
+        "service_id": "ServiceId",
+        "msisdn": "+5531999999975",
+        "access_level": "free",
+        "name": "Francisco Xablau",
+        "score": 0,
+        "level": 1,
+        "created_at": "2021-11-19T01:43:21.959Z",
+        "relatives": []
+    }
+}
+
+FIND ALL: GET http://localhost:3001/user
+
+response =>
+
+{
+    "0": {
+        "_id": "6196955d4d6340a326d641e0",
+        "msisdn": "+5531999999999",
+        "name": "João Silva",
+        "access_level": "premium",
+        "password": "123456",
+        "external_id": "HD73GDi7",
+        "created_at": "2021-11-18T18:03:09.877Z"
+    },
+    "1": {
+        "_id": "61969f479941032776ef3a4f",
+        "msisdn": "+5531999999998",
+        "name": "João Kleber",
+        "access_level": "free",
+        "password": "123456",
+        "external_id": "HD73GDi8",
+        "created_at": "2021-11-18T18:45:27.516Z"
+    },
+    "2": {
+        "_id": "6196c3b95fa44c716afce877",
+        "msisdn": "+5531999999996",
+        "name": "Felipe da Silva",
+        "access_level": "pro",
+        "password": "123456",
+        "external_id": "HD73GDSx",
+        "created_at": "2021-11-18T21:20:57.274Z"
+    },
+    "3": {
+        "_id": "6196c57ccb1ac641dc059454",
+        "msisdn": "+5531971213547",
+        "name": "Felipe Carvalho",
+        "access_level": "free",
+        "password": "1234",
+        "external_id": "365573d",
+        "created_at": "2021-11-18T21:28:28.086Z"
+    },
+}
+
+UPGRADE: PUT http://localhost:3001/user/:id/upgrade
+
+params => ex: 6196955d4d6340a326d641e0
+
+response =>
+
+{
+    "data": {
+        "id": "6196955d4d6340a326d641e0",
+        "service_id": "qualifica"
+    }
+}
+
+DOWNGRADE: PUT http://localhost:3001/user/:id/upgrade
+
+params => ex: 6196955d4d6340a326d641e0
+
+response =>
+
+{
+    "data": {
+        "id": "6196955d4d6340a326d641e0",
+        "service_id": "qualifica"
+    }
+}
