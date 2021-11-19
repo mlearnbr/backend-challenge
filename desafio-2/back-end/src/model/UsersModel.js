@@ -46,10 +46,10 @@ const findAll = async () => {
 
 const upgradeDowngrade = async (userId, upgradeOrDowngrade) => {
     const user = await findById(userId);
+    console.log(userId);
 
     let newAccessLevel = '';
-    if (user === null) return null; // 'Usuário não encontrado'
-
+    if (user === null) return null;
     const { access_level } = user;
 
     if (upgradeOrDowngrade === 'upgrade') {
@@ -58,11 +58,13 @@ const upgradeDowngrade = async (userId, upgradeOrDowngrade) => {
 
     if (upgradeOrDowngrade === 'downgrade') {
         newAccessLevel = downgradeAccessLevel(access_level);
-    } 
+    }
+
+    console.log(newAccessLevel);
     
     const db = await connection();
-    return db.collection('users')
-        .updateOne({ _id: userId }, { $set: { access_level: newAccessLevel } });
+    await db.collection('users')
+        .updateOne({ _id: ObjectId(userId) }, { $set: { access_level: newAccessLevel } });
 };
 
 const upgrade = async (userId) => upgradeDowngrade(userId, 'upgrade');

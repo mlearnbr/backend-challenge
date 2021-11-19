@@ -25,10 +25,43 @@ const register = async (body) => {
 
 const findAll = async () => {
     const users = await UserModel.findAll();
-    return users;
+    const { password: _, ...userWithoutPassword } = users;
+    return userWithoutPassword;
+};
+
+const upgrade = async (userId) => {
+    const user = await UserModel.upgrade(userId);
+
+    if (user === null) {
+        return { error: { message: 'Usuário não encontrado' } };
+    }
+
+    return {
+        data: {
+            id: userId,
+            service_id: process.env.SERVICE_ID,
+        },
+    };
+};
+
+const downgrade = async (userId) => {
+    const user = await UserModel.downgrade(userId);
+
+    if (user === null) {
+        return { error: { message: 'Usuário não encontrado' } };
+    }
+
+    return {
+        data: {
+            id: userId,
+            service_id: process.env.SERVICE_ID,
+        },
+    };
 };
 
 module.exports = {
     register,
     findAll,
+    upgrade,
+    downgrade,
 };
