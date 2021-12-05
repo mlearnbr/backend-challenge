@@ -1,2 +1,2 @@
-App/Congig.php
-App/integracao.php
+App/Config/config.php
+App/Config/integracao.php
