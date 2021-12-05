@@ -1,0 +1,6 @@
+<?php
+
+define('AUTHORIZATION_TYPE','');
+define('AUTHORIZATION','');
+define('SERVICE_ID','');
+define('APP_USER_GROUP_ID','');
