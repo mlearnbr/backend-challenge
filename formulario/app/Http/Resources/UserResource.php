@@ -20,7 +20,7 @@ class UserResource extends JsonResource
             'access_level' => $this->access_level,
             'name' => $this->name,
             'external_id' => $this->external_id,
-            'created_at' => $this->created_at->format('d/m/Y')
+            'password' => $this->password
         ];
     }
 }

@@ -35,12 +35,13 @@ class UserRepository  implements IUserRepository
 
     public function listBy(int $id)
     {
-        $data =  $this->user::find($id);
+        $data =  $this->user::findOrFail($id);
         return $data;
     }
 
     public function edit(int $id,string $name, string $msisdn, ?string $password, string $access_level,string $external_id)
     {
+
            $obj =  $this->user::findOrFail($id);
            $obj->name = $name;
            $obj->msisdn = $msisdn;

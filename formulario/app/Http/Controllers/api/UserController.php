@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Resources\UserResource;
 use App\Http\Requests\UserRequest;
 use App\Services\Contracts\IUserService;
+use App\Models\User;
+use Datatables;
 
 class UserController extends Controller
 {
@@ -23,20 +25,28 @@ class UserController extends Controller
 
     public function index()
     {
-        try{
-
-            $data = $this->userService->list();
-            return UserResource::collection($data);
-
-        } catch (\Exception $e) {
-            return response()->json(
-                [
-                    'success' => false,
-                    'error' => $e->getMessage()
-                ],
-                403
-            );
+        if(request()->ajax()) {
+            return datatables()->of(User::select('*'))
+            ->addColumn('action', 'users.users-action')
+            ->rawColumns(['action'])
+            ->addIndexColumn()
+            ->make(true);
         }
+
+         try{
+
+             $data = $this->userService->list();
+             return UserResource::collection($data);
+
+         } catch (\Exception $e) {
+             return response()->json(
+                 [
+                     'success' => false,
+                     'error' => $e->getMessage()
+                 ],
+                 403
+             );
+         }
     }
 
 
