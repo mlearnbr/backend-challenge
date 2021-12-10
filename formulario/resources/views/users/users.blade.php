@@ -36,6 +36,7 @@
                      <th>Msisdn</th>
                      <th>Access level</th>
                      <th>External id</th>
+                     <th>Mlearn id</th>
                      <th>Action</th>
                   </tr>
                </thead>
@@ -67,7 +68,10 @@
                      <div class="form-group">
                         <label class="col-sm-2 control-label">Access Level</label>
                         <div class="col-sm-12">
-                           <input type="text" class="form-control" id="access_level" name="access_level" placeholder="Enter Access level" required="">
+                          <select class="form-control" name="access_level" id="access_level">
+                            <option value="pro">Pro</option>
+                            <option value="premium">Premium</option>
+                          </select>
                         </div>
                      </div>
                      <div class="form-group">
@@ -111,6 +115,7 @@
         { data: 'msisdn', name: 'msisdn' },
         { data: 'access_level', name: 'access_level' },
         { data: 'external_id', name: 'external_id' },
+        { data: 'mlearn_id', name: 'mlearn_id' },
         {data: 'action', name: 'action', orderable: false},
         ],
         order: [[0, 'desc']]
@@ -176,9 +181,9 @@
                 $("#btn-save").html('Submit');
                 $("#btn-save"). attr("disabled", false);
             },
-            error: function(data){
-            console.log(data);
-            }
+            error: function(jqXHR, textStatus, errorThrown){
+            alert(textStatus + ": " + jqXHR.status + " " + errorThrown);
+        }
         });
 
     }else{
@@ -208,9 +213,9 @@
                 $("#btn-save").html('Submit');
                 $("#btn-save"). attr("disabled", false);
             },
-            error: function(data){
-            console.log(data);
-            }
+            error: function(jqXHR, textStatus, errorThrown){
+            alert(textStatus + ": " + jqXHR.status + " " + errorThrown);
+        }
         });
     }
 

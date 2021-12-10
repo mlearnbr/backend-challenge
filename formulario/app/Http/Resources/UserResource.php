@@ -20,7 +20,8 @@ class UserResource extends JsonResource
             'access_level' => $this->access_level,
             'name' => $this->name,
             'external_id' => $this->external_id,
-            'password' => $this->password
+            'password' => $this->password,
+            'mlearn_id' => $this->mlearn_id
         ];
     }
 }

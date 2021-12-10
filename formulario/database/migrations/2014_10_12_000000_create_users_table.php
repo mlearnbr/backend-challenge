@@ -20,8 +20,9 @@ class CreateUsersTable extends Migration
        //     $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
             $table->string('msisdn');
-            $table->enum('access_level', [ 'free','pro', 'premium'])->default('free');
+            $table->enum('access_level', ['pro', 'premium'])->default('pro');
             $table->string('external_id');
+            $table->string('mlearn_id')->nullable();
         //    $table->rememberToken();
             $table->timestamps();
         });

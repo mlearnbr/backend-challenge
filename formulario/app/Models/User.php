@@ -23,7 +23,8 @@ class User extends Authenticatable
         'password',
         'msisdn',
         'external_id',
-        'access_level'
+        'access_level',
+        'mlearn_id'
     ];
 
     /**

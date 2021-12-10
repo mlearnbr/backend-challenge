@@ -8,6 +8,8 @@ use App\Http\Requests\UserRequest;
 use App\Services\Contracts\IUserService;
 use App\Models\User;
 use Datatables;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
@@ -54,6 +56,7 @@ class UserController extends Controller
     {
 
         try{
+            DB::beginTransaction();
 
             $data = (object)$request->only([
                 'name',
@@ -64,9 +67,15 @@ class UserController extends Controller
             ]);
 
             $data = $this->userService->add($data->name,$data->msisdn,$data->password,$data->access_level,$data->external_id);
+
+            DB::commit();
+
             return $data;
 
         } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error($e);
+
             return response()->json(
                 [
                     'success' => false,
