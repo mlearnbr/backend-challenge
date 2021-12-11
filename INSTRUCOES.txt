@@ -21,7 +21,7 @@ php artisan migrate
 #Ou fora do container
 docker exec formulario_app_1 composer install
 docker exec formulario_app_1 composer update
-
+docker exec formulario_app_1 php artisan migrate
 
 #opcional, gera 1 registro
 php artisan db:seed
