@@ -144,6 +144,37 @@
       }
       });
     }
+    function upDownFunc(mlearn_id,type){
+
+        if(type == 'upgrade'){
+
+        $.ajax({
+            type:"put",
+            url: "{{ url('api/mlearn/upgrade') }}"+"/"+mlearn_id,
+            dataType: 'json',
+        success: function(res){
+            alert('Upgrade realizado com sucesso');
+            var oTable = $('#ajax-crud-datatable').dataTable();
+        oTable.fnDraw(false);
+            }
+        });
+
+        }else{
+
+        $.ajax({
+            type:"put",
+            url: "{{ url('api/mlearn/downgrade') }}"+"/"+mlearn_id,
+            dataType: 'json',
+            success: function(res){
+                alert('Downgrade realizado com sucesso');
+                var oTable = $('#ajax-crud-datatable').dataTable();
+        oTable.fnDraw(false);
+            }
+        });
+
+        }
+
+    }
     function deleteFunc(id){
       if (confirm("Delete Record "+ id +"?") == true) {
       var id = id;
