@@ -107,7 +107,7 @@ class UserController extends Controller
     }
 
 
-    public function update(Request $request)
+    public function update(UserRequest $request)
     {
 
         try{

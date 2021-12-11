@@ -1,3 +1,39 @@
+INSTRUCOES PARA RODAR O PROJETO
+
+
+criar o arquivo .env ,apartir do env.example
+
+#url do front datatable
+http://localhost:8006/front
+
+#rodar e subir os containers docker
+docker-compose  build
+docker-compose  up -d
+
+#Entrar no container docker
+docker exec -it CONTAINER_ID bash
+
+#Dentro do container, executar os comandos abaixo
+composer install
+composer update
+php artisan migrate
+
+#Ou fora do container
+docker exec formulario_app_1 composer install
+docker exec formulario_app_1 composer update
+
+
+#opcional, gera 1 registro
+php artisan db:seed
+
+#rodar os tests
+php artisan test
+
+
+
+
+
+
 ## Commands Laravel
 php artisan make:controller TestController --resource
 php artisan make:model Test -mcr
@@ -8,6 +44,7 @@ php artisan db:seed --class=UserTableSeeder (executar seed individual)
 php artisan db:seed (todas seeds)
 php artisan make:resource TestResource
 php artisan make:request TestResource
+php artisan make:test UserTest
 
 #mysq in worbranch
 docker ps
