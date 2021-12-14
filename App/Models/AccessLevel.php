@@ -48,6 +48,14 @@ class AccessLevel
         }
         return $access_levels;
     }
+    public function fetchIdByAccessLevel($accessLevel)
+    {
+        $query = "SELECT id FROM access_level WHERE UPPER(access_level) = UPPER('$accessLevel');";
+        $return = $this->con->select($query);
+        foreach ($return as $value) {
+            $this->id = $value[0];
+        }
+    }
 
     private function checkExiste()
     {

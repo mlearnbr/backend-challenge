@@ -15,13 +15,13 @@ class Integracao
         $this->authorization = AUTHORIZATION_TYPE . ' ' . AUTHORIZATION;
         $this->service_id = SERVICE_ID;
         $this->app_users_group_id = APP_USER_GROUP_ID;
-        $this->host = 'https://api2.mlearn.mobi';
+        $this->host = 'https://api.staging.mlearn.mobi';
     }
 
     public function upgradeMLeran($id, $tipo)
     {
         $curl = curl_init();
-        $this->url =  '/integrator/' . $this->service_id . '/users' . $id . '/' . $tipo;
+        $this->url =  '/integrator/' . $this->service_id . '/users/' . $id . '/' . $tipo;
         curl_setopt_array($curl, array(
             CURLOPT_URL => $this->host . $this->url,
             CURLOPT_RETURNTRANSFER => true,
@@ -67,9 +67,9 @@ class Integracao
         ));
 
         $response = json_decode(curl_exec($curl));
-
+        
         curl_close($curl);
 
-        return $response;
+        return $response->data;
     }
 }

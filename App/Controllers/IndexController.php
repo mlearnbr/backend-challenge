@@ -43,7 +43,7 @@ class IndexController extends Action {
         $tel = $_POST['tel'];
         $senha = $_POST['senha'];
 
-        $usuario = new Usuario(null,$nome,$tel,1,$senha);
+        $usuario = new Usuario(null,$nome,$tel,2,$senha);
 
         if ($usuario->salvar()) {
             $arr_result = ['success' => 1, 'error' => 0];
@@ -58,13 +58,15 @@ class IndexController extends Action {
         $id = $_POST['id'];
         $user = $_POST['user'];
 
+
+
         $usuario = new Usuario($user);
         $usuario->fetch();
         $usuario->novoLevel($id);
         if ($usuario->novoLevel($id)) {
-            $arr_result = ['success' => 1, 'error' => 0];
+            $arr_result = ['success' => 1, 'error' => 0, 'novoLevel' => $id, 'antigoLevel' => $usuario->__get('level')];
         } else {
-            $arr_result = ['success' => 0, 'error' => 1];
+            $arr_result = ['success' => 0, 'error' => 1, 'novoLevel' => $id, 'antigoLevel' => $usuario->__get('level')];
         }
         echo json_encode($arr_result);
     }

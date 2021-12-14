@@ -42,12 +42,28 @@ class Usuario
     {
         if ($this->id_mlearn) {
             $interacao = new Integracao();
-            if ($this->level < $id) {
+            $access = new AccessLevel();
+            $accessLevel = $access->fetchIdByAccessLevel($this->level);
+            // 1 3
+            if ($accessLevel < $id) {
+                if($accessLevel == $id -1){
+                    $quantidade_troca = 1;
+                }else{
+                    $quantidade_troca = 2;
+                }
                 $tipo = "upgrade";
             } else {
+                if($accessLevel == $id +1){
+                    $quantidade_troca = 1;
+                }else{
+                    $quantidade_troca = 2;
+                }
                 $tipo = "downgrade";
             }
-            $interacao->upgradeMLeran($this->id_mlearn, $tipo);
+            for ($i=0; $i < $quantidade_troca; $i++) { 
+                $retorno = $interacao->upgradeMLeran($this->id_mlearn, $tipo);
+                // print_r($retorno);
+            }
         }
         $colum = ["access_level = $id"];
         $where = ["id = $this->id"];
@@ -75,7 +91,7 @@ class Usuario
             $retorno_integracao = $interacao->cadastroMLeran(json_encode($dados));
             if (is_object($retorno_integracao)) {
 
-                $id_mlearn = $retorno_integracao->resposta->data->id;
+                $id_mlearn = $retorno_integracao->id;
                 $usuario->__set('id_mlearn', $id_mlearn);
                 $usuario->salvarIdMLearn();
             }
@@ -86,26 +102,28 @@ class Usuario
     }
     public function fetch()
     {
-        $query = "SELECT u.id,u.name,u.msisdn,a.access_level FROM usuario u JOIN access_level a ON u.access_level = a.id WHERE u.id = $this->id;";
+        $query = "SELECT u.id,u.name,u.id_mlearn,u.msisdn,a.access_level FROM usuario u JOIN access_level a ON u.access_level = a.id WHERE u.id = $this->id;";
         $return = $this->con->select($query);
         foreach ($return as $value) {
             $this->id = $value[0];
             $this->nome = $value[1];
-            $this->tel = $value[2];
-            $this->level = $value[3];
+            $this->id_mlearn = $value[2];
+            $this->tel = $value[3];
+            $this->level = $value[4];
         }
     }
     public function fetchAll()
     {
-        $query = "SELECT u.id,u.name,u.msisdn,a.access_level FROM usuario u JOIN access_level a ON u.access_level = a.id;";
+        $query = "SELECT u.id,u.name,u.id_mlearn,u.msisdn,a.access_level FROM usuario u JOIN access_level a ON u.access_level = a.id;";
         $return = $this->con->select($query);
         $usuarios = array();
         foreach ($return as $value) {
             $usuario = new Usuario();
             $usuario->__set('id', $value[0]);
             $usuario->__set('nome', $value[1]);
-            $usuario->__set('tel', $value[2]);
-            $usuario->__set('level', $value[3]);
+            $usuario->__set('id_mlearn', $value[2]);
+            $usuario->__set('tel', $value[3]);
+            $usuario->__set('level', $value[4]);
             $usuarios[] = $usuario;
         }
         return $usuarios;
