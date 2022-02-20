@@ -5,16 +5,30 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
+use App\Services\UserService;
 
-class UserController extends Controller
+class UserController
 {
+    /**
+     * @var UserService
+     */
+    private $service;
+
+    /**
+     * UserController constructor.
+     * @param UserService $service
+     */
+    public function __construct(UserService $service)
+    {
+        $this->service = $service;
+    }
     /**
      * Display a listing of the resource.
      *
      */
     public function index()
     {
-        return view("users.index");
+        return view("users.index", ["users" => User::all()]);
     }
 
     /**
@@ -24,18 +38,19 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view("users.create");
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\StoreUserRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(StoreUserRequest $request)
     {
-        //
+         $user = $this->service->store($request);
+         return redirect()->route('user.index');
     }
 
     /**

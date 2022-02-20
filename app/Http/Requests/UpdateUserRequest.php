@@ -24,7 +24,11 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|string',
+            'msisdn' => ['required', 'min:11', 'max:11'],
+            'access_level' => 'required',
+            'email' => 'required|string',
+            'password' => 'nullable',
         ];
     }
 }

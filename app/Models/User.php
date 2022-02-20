@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class User extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        "msisdn",
+        "access_level",
+        "name",
+        "password"
+    ];
 }
