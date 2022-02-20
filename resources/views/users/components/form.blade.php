@@ -12,8 +12,8 @@
     <label for="access_level">Level</label>
     <select class="form-control" id="access_level" name="access_level" required>
         <option value="">Selecione o level</option>
-        <option value="Pro">Pro</option>
-        <option value="Premium">Premium</option>
+        <option value="pro">Pro</option>
+        <option value="premium">Premium</option>
     </select>
 </div>
 <div class="form-group">

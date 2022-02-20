@@ -15,10 +15,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('users.create');
 });
 
 Route::resource("user", UserController::class);
 
+Route::put("/user/{user}/upgrade", [UserController::class, "upgrade"])->name("upgrade");
+Route::put("/user/{user}/downgrade", [UserController::class, "downgrade"])->name("downgrade");
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -1,6 +1,13 @@
 @extends('layouts.app')
 @section('content')
-    <h1 class="text-center">Usuários</h1>
+    <div class="row">
+        <h1 class="col-11 text-center">Usuários</h1>
+        <div class="col-1">
+            <a class="btn btn-primary" href="{{route("user.create")}}">
+                Adicionar
+            </a>
+        </div>
+    </div>
     <table class="table table-dark">
         <thead>
         <tr class="text-center">
@@ -19,13 +26,15 @@
                     <td>{{$user->msisdn}}</td>
                     <td>{{$user->access_level}}</td>
                     <td>
-                        <form action="{{route('user.index')}}" method="post"
+                        <form action="{{route('upgrade', [$user->id])}}" method="POST"
                               class="d-inline">
+                            @method('PUT')
                             @csrf
                             <button class="btn btn-primary btn-sm col-4" type="submit">Upgrade</button>
                         </form>
-                        <form action="{{route('user.index')}}" method="post"
+                        <form action="{{route('downgrade', [$user->id])}}" method="POST"
                               class="d-inline">
+                            @method('PUT')
                             @csrf
                             <button class="btn btn-danger btn-sm col-4" type="submit">Downgrade</button>
                         </form>

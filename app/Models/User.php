@@ -13,6 +13,7 @@ class User extends Model
         "msisdn",
         "access_level",
         "name",
-        "password"
+        "password",
+        "id_mlearn"
     ];
 }

@@ -6,6 +6,8 @@ use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use App\Services\UserService;
+use Illuminate\Http\RedirectResponse;
+use PHPUnit\Util\Xml\Exception;
 
 class UserController
 {
@@ -45,11 +47,11 @@ class UserController
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\StoreUserRequest  $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function store(StoreUserRequest $request)
     {
-         $user = $this->service->store($request);
+         $this->service->store($request);
          return redirect()->route('user.index');
     }
 
@@ -96,5 +98,25 @@ class UserController
     public function destroy(User $user)
     {
         //
+    }
+
+    /**
+     * @param User $user
+     * @return \Exception|RedirectResponse|Exception
+     */
+    public function upgrade(User $user)
+    {
+        $this->service->upgrade($user);
+        return redirect()->route('user.index');
+    }
+
+    /**
+     * @param User $user
+     * @return \Exception|RedirectResponse|Exception
+     */
+    public function downgrade(User $user)
+    {
+        $this->service->downgrade($user);
+        return redirect()->route('user.index');
     }
 }

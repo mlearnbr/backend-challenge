@@ -14,6 +14,9 @@
                 <button type="submit" class="btn btn-primary">
                     Salvar
                 </button>
+                <a class="btn btn-primary" href="{{route("user.index")}}">
+                    Voltar
+                </a>
             </div>
         </div>
     </form>
