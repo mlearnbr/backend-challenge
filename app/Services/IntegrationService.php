@@ -29,39 +29,48 @@ class IntegrationService
             ]);
             $values = (string)$response->getBody();
             return json_decode($values);
-        }catch (Exception $e){
+        } catch (Exception $e) {
             return $e;
         }
     }
 
     public function upgradeUserMlearn(User $user)
     {
-        $client = new Client([
-            "base_uri" => env("URL_API_MLEARN") . "integrator/" . env("SERVICE_ID") . "/users/",
-            'headers' => [
-                "Authorization" => "Bearer " . env("MLEARN_API_TOKEN"),
-                "service-id" => env("SERVICE_ID"),
-                "app-users-group-id" => "20"
-            ]
-        ]);
-        $req = $user->id_mlearn . "/upgrade";
-        $response = $client->put($req);
-        $values = (string)$response->getBody();
-        return json_decode($values);
+        try {
+            $client = new Client([
+                "base_uri" => env("URL_API_MLEARN") . "integrator/" . env("SERVICE_ID") . "/users/",
+                'headers' => [
+                    "Authorization" => "Bearer " . env("MLEARN_API_TOKEN"),
+                    "service-id" => env("SERVICE_ID"),
+                    "app-users-group-id" => "20"
+                ]
+            ]);
+            $req = $user->id_mlearn . "/upgrade";
+            $response = $client->put($req);
+            $values = (string)$response->getBody();
+            return json_decode($values);
+        } catch (Exception $e) {
+            return $e;
+        }
     }
+
     public function downgradeUserMlearn(User $user)
     {
-        $client = new Client([
-            "base_uri" => env("URL_API_MLEARN") . "integrator/" . env("SERVICE_ID") . "/users/",
-            'headers' => [
-                "Authorization" => "Bearer " . env("MLEARN_API_TOKEN"),
-                "service-id" => env("SERVICE_ID"),
-                "app-users-group-id" => "20"
-            ]
-        ]);
-        $req = $user->id_mlearn . "/downgrade";
-        $response = $client->put($req);
-        $values = (string)$response->getBody();
-        return json_decode($values);
+        try {
+            $client = new Client([
+                "base_uri" => env("URL_API_MLEARN") . "integrator/" . env("SERVICE_ID") . "/users/",
+                'headers' => [
+                    "Authorization" => "Bearer " . env("MLEARN_API_TOKEN"),
+                    "service-id" => env("SERVICE_ID"),
+                    "app-users-group-id" => "20"
+                ]
+            ]);
+            $req = $user->id_mlearn . "/downgrade";
+            $response = $client->put($req);
+            $values = (string)$response->getBody();
+            return json_decode($values);
+        } catch (Exception $e) {
+            return $e;
+        }
     }
 }
