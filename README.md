@@ -1,9 +1,8 @@
-# Desafio back-end da mLearn
+# Desafio back-end da Qualifica
 
 Esse repositório é o nosso desafio para avaliar o quão bom desenvolvedor back-end você é.
 
 Provavelmente você já está participando do nosso processo seletivo, mas se você caiu aqui por acaso, leia o documento até o final e caso haja interesse, você pode começar daqui mesmo.
-
 
 ## Sobre o desafio
 
@@ -17,7 +16,7 @@ O que nós esperamos aprender sobre você com o desafio:
 - Como você pensa e resolve problemas
 - Como você se comunica
 
-O que nós esperamos que você aprenda sobre a mLearn:
+O que nós esperamos que você aprenda sobre a Qualifica:
 
 - Como nós trabalhamos como um time.
 - Tenha uma visão próxima dos desafios que enfrentamos no dia-a-dia.

@@ -1,4 +1,4 @@
-#mLearn back-end challenge
+# Qualifica back-end challenge
 
 Este desafio é composto por duas partes:
 
@@ -28,7 +28,7 @@ Se você está fazendo este desafio possivelmente está em nosso processo seleti
 - Utilize PHP para construção do back-end.
 - Deve existir uma página com formulário de cadastro de um usuário.
 - Este usuário deve ser persistido no banco de dados da sua aplicação.
-- Após cadastrar o usuário faça uma requisição na API mLearn para cadastrar este usuário em nossa base: [documentação](https://docs.google.com/document/d/10cBy26pik7JdP7L4WcCxgX036Wwrp3Nt3747awYWbEA/edit#heading=h.gbchpehyd9ha).
+- Após cadastrar o usuário faça uma requisição na API Qualifica para cadastrar este usuário em nossa base: [documentação](https://docs.google.com/document/d/10cBy26pik7JdP7L4WcCxgX036Wwrp3Nt3747awYWbEA/edit#heading=h.gbchpehyd9ha).
 - Faça uma página com listagem de usuários cadastrados.
 - Dê a opção de fazer downgrade ou upgrade dos usuários, estas requisições também estão presentes em nossa documentação.
 - Não se esqueça de criar um arquivo com instruções para rodarmos o projeto.
@@ -43,8 +43,8 @@ Se você está fazendo este desafio possivelmente está em nosso processo seleti
 
 - O código será avaliado considerando: semântica, estruturação, legibilidade, tamanho, entre outros fatores.
 - O histórico do `git` também será avaliado.
-- Nossa stack aqui na **mLEARN** é baseada principalmente em PHP, Laravel, MongoDB e MySQL. Caso você tenha familiaridade com ela, pode utilizá-la para resolver o desafio.
+- Nossa stack aqui na **Qualifica** é baseada principalmente em PHP, Laravel, MongoDB e MySQL. Caso você tenha familiaridade com ela, pode utilizá-la para resolver o desafio.
 - Não esqueça da documentação. Ou como nós iremos conseguir avaliar o trabalho se não for possível inicializar o projeto em nossas máquinas?
 
 ## Encontrou alguma dificuldade?
-O desafio é mais difícil do que você pensou a princípio? Entre em contato com a gente através do email ti@mlearn.com.br. Nós estamos buscando alguém que possa contribuir com o projeto logo de cara, mas iremos considerar quem está começando e quer aprender mais.
+O desafio é mais difícil do que você pensou a princípio? Entre em contato com a gente através do email ti@qualifica.com.br. Nós estamos buscando alguém que possa contribuir com o projeto logo de cara, mas iremos considerar quem está começando e quer aprender mais.
