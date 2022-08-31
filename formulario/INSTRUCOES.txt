@@ -1,0 +1,32 @@
+INSTRUCOES PARA RODAR O PROJETO
+
+
+criar o arquivo .env ,apartir do env.example
+
+#url do front datatable
+http://localhost:8006/front
+
+#rodar e subir os containers docker
+docker-compose  build
+docker-compose  up -d
+
+#Entrar no container docker
+docker exec -it CONTAINER_ID bash
+
+#Dentro do container, executar os comandos abaixo
+composer install
+composer update
+php artisan migrate
+
+#Ou fora do container
+docker exec formulario_app_1 composer install
+docker exec formulario_app_1 composer update
+docker exec formulario_app_1 php artisan migrate
+
+
+#opcional, gera 1 registro
+php artisan db:seed
+
+#rodar os tests
+php artisan test
+
