@@ -1,0 +1,82 @@
+<?php
+$usuario = $this->view->dados;
+?>
+<table class="table">
+    <tbody>
+        <tr>
+            <th scope="col">#</th>
+            <td scope="col" id="user"><?= $usuario->__get('id') ?></td>
+        </tr>
+
+
+        <tr>
+            <th scope="row">Nome</th>
+            <td><?= $usuario->__get('nome') ?></td>
+
+        </tr>
+        <tr>
+            <th scope="row">Telefone</th>
+            <td><?= $usuario->__get('tel') ?></td>
+
+        </tr>
+        <tr>
+            <th scope="row">Level</th>
+            <td >
+                <span id="planoAtual"><?= $usuario->__get('level') ?></span>
+                <hr>
+                <?php
+                foreach ($this->view->access_level as $access_level) {
+                ?>
+                    <a href="#" id="btnAccess<?= $access_level->__get('id') ?>" class="btnAccess btn btn-<?= $access_level->__get('color') ?>"><?= $access_level->__get('access_level') ?></a>
+                <?php
+                }
+
+                ?>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<script>
+    $('#usuarios').addClass('active')
+
+    $('.btnAccess').on('click', function(e) {
+        let id = $(this).attr('id')
+        let user = $("#user").html()
+        id = id.replace('btnAccess', '')
+        let url = '/usuarioTrocaLevel';
+        let formData = new FormData()
+        formData.append("user", user)
+        formData.append("id", id)
+        $.ajax({
+            url: url,
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+        }).done(function(e) {
+            console.log(e)
+            let result = JSON.parse(e)
+            if (result.success == 1) {
+                $('#nome').val("");
+                $('#tel').val("");
+                $('#senha').val("");
+                Swal.fire(
+                    'Eeeeee!',
+                    'Plano Alterado!',
+                    'success'
+                )
+                $('#planoAtual').html($('#btnAccess' + id).html())
+            } else {
+                Swal.fire(
+                    'Aaaa!',
+                    'Plano Não Alterado!',
+                    'error'
+                )
+            }
+
+        }).fail(function(e) {
+            console.log(e);
+        });
+    })
+</script>

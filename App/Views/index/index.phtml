@@ -1,0 +1,60 @@
+<h4>Cadastrar Usuário</h4>
+<form method="POST"  id="usuarioForm">
+    <div class="mb-3">
+        <label for="nome" class="form-label">Nome</label>
+        <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome">
+    </div>
+    <div class="mb-3">
+        <label for="tel" class="form-label">Telefone</label>
+        <input type="text" class="form-control" id="tel" name="tel" placeholder="+9999999999999" >
+    </div>
+    <div class="mb-3">
+        <label for="senha" class="form-label">Senha</label>
+        <input type="password" class="form-control" id="senha" name="senha" placeholder="Senha">
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-primary mb-3" id="enviar">Cadastrar</button>
+    </div>
+
+</form>
+
+<script>
+    $('#index').addClass('active')
+    $("#tel").mask("+0000000000000");
+    $('#usuarioForm').submit(e => {
+        e.preventDefault()
+        let form = document.getElementById('usuarioForm')
+        let formData = new FormData(form)
+        let url = '/usuarioInsert';
+        $.ajax({
+            url: url,
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+        }).done(function(e) {
+            console.log(e)
+            let result = JSON.parse(e)
+            if (result.success == 1) {
+                $('#nome').val("");
+                $('#tel').val("");
+                $('#senha').val("");
+                Swal.fire(
+                    'Eeeeee!',
+                    'Usuário Cadastrado!',
+                    'success'
+                )
+            } else {
+                Swal.fire(
+                    'Aaaa!',
+                    'Usuário Não Cadastrado!',
+                    'error'
+                )
+            }
+
+        }).fail(function(e) {
+            console.log(e);
+        });
+
+    })
+</script>
