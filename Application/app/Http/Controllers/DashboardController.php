@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
 use App\Models\User;
+use App\Services\QualificaService;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
 class DashboardController extends Controller
@@ -27,7 +30,19 @@ class DashboardController extends Controller
 
     public function store(UserRequest $request, User $user)
     {
-        $user->fill($request->all())->save();
+        DB::beginTransaction();
+        try {
+            $user->fill($request->all())->save();
+            $service = new QualificaService();
+            $service->storeUser($user->toArray());
+
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollback();
+
+            flash(__('flash.failed_registration'))->error();
+            return redirect(route('users.index'));
+        }
 
         flash(__('flash.successful_registration'))->success();
         return redirect(route('users.show', compact('user')));
@@ -45,15 +60,44 @@ class DashboardController extends Controller
 
     public function upgrade(Request $request, User $user)
     {
-        $user->fill(['access_level' => 'premium'])->update();
+        DB::beginTransaction();
+        try {
+            $user->fill(['access_level' => 'premium'])->update();
+            $service = new QualificaService();
+            $service->upgradeUser($user->qualifica_id);
+
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollback();
+
+            flash(__('flash.failed_update'))->error();
+            return redirect(route('users.index'));
+        }
 
         flash(__('flash.successful_update'))->success();
-        return redirect(route('users.index', compact('user')));
+        return redirect(route('users.index'));
     }
 
     public function update(UserRequest $request, User $user)
     {
-        $user->fill($request->all())->update();
+        DB::beginTransaction();
+        try {
+            $user->fill($request->all())->update();
+            $service = new QualificaService();
+            $service->updateUser(collect($user)->only([
+                'msisdn',
+                'name',
+                'access_level',
+                'password',
+            ])->toArray(), $user->qualifica_id);
+
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollback();
+
+            flash(__('flash.failed_update'))->error();
+            return redirect(route('users.index'));
+        }
 
         flash(__('flash.successful_update'))->success();
         return redirect(route('users.show', compact('user')));
@@ -61,21 +105,41 @@ class DashboardController extends Controller
 
     public function downgrade(Request $request, User $user)
     {
-        $user->fill(['access_level' => 'pro'])->update();
+        DB::beginTransaction();
+        try {
+            $user->fill(['access_level' => 'pro'])->update();
+            $service = new QualificaService();
+            $service->downgradeUser($user->qualifica_id);
+
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollback();
+
+            flash(__('flash.failed_update'))->error();
+            return redirect(route('users.index'));
+        }
 
         flash(__('flash.successful_update'))->success();
-        return redirect(route('users.index', compact('user')));
+        return redirect(route('users.index'));
     }
 
     public function destroy(Request $request, User $user)
     {
-        $user->delete();
-        $message = __('flash.successful_deleted');
-        if ($request->ajax())
-            return response()
-                ->json(['message' => $message]);
+        DB::beginTransaction();
+        try {
+            $user->delete();
+            $service = new QualificaService();
+            $service->deleteUser($user->qualifica_id);
 
-        flash($message)->success();
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollback();
+
+            flash(__('flash.failed_deleted'))->error();
+            return redirect(route('users.index'));
+        }
+
+        flash(__('flash.successful_deleted'))->success();
         return redirect(route('users.index'));
     }
 
