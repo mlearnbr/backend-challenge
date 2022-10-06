@@ -13,6 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::get('/', function () {
-//    return view('welcome');
-//});
+Route::get('/', function () {
+    return redirect(route('users.index'));
+});
+
+Route::get('users/datatable', 'DashboardController@datatable')
+    ->name('users.datatable');
+Route::resource('users', 'DashboardController');
+Route::put('users/{user}/upgrade', 'DashboardController@upgrade')
+    ->name('users.upgrade');
+Route::put('users/{user}/downgrade', 'DashboardController@downgrade')
+    ->name('users.downgrade');

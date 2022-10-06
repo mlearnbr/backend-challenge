@@ -1,5 +1,16 @@
 import _ from 'lodash';
-window._ = _;
+import axios from 'axios';
+import popper from 'popper.js';
+import jquery from 'jquery';
+import izitoast from 'izitoast';
+
+
+import '../../vendor/almasaeed2010/adminlte/dist/js/adminlte';
+import 'bootstrap';
+import 'datatables.net-bs5';
+import 'datatables.net-responsive-bs5';
+import 'select2';
+import 'inputmask/dist/jquery.inputmask';
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -7,10 +18,14 @@ window._ = _;
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-import axios from 'axios';
+window._ = _;
 window.axios = axios;
-
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.Popper = popper.default;
+window.$ = window.jQuery = jquery;
+window.iziToast = izitoast;
+
+$.fn.select2.defaults.set("theme", "bootstrap-5");
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening

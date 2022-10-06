@@ -1,0 +1,30 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic');
+@import '~@fortawesome/fontawesome-free/css/all.css';
+
+// iCheck
+@import '~icheck-bootstrap/icheck-bootstrap.css';
+
+// AdminLTE
+@import '../../vendor/almasaeed2010/adminlte/dist/css/adminlte.css';
+
+// Bootstrap
+@import "~bootstrap/scss/bootstrap";
+
+// Select2
+@import "~select2/src/scss/core";
+@import '~select2-bootstrap-5-theme/src/select2-bootstrap-5-theme';
+
+// Datatables
+@import '~datatables.net-bs5/css/dataTables.bootstrap5.css';
+@import '~datatables.net-responsive-bs5/css/responsive.bootstrap5.css';
+@import 'datatable';
+
+// iziToast
+@import '~izitoast/dist/css/iziToast.css';
+
+// Overwrite
+@import 'overwrite';
+
+// Default
+@import 'default';
