@@ -1,41 +1,75 @@
-# Desafio back-end da Qualifica
+# Sistema de cadastro de Usuários na API Qualifica
 
-Esse repositório é o nosso desafio para avaliar o quão bom desenvolvedor back-end você é.
+## Executar com Tusk
 
-Provavelmente você já está participando do nosso processo seletivo, mas se você caiu aqui por acaso, leia o documento até o final e caso haja interesse, você pode começar daqui mesmo.
+### Dependências
 
-## Sobre o desafio
+É preciso ter [docker](https://docs.docker.com/install/), [docker compose](https://docs.docker.com/compose/install/) e
+o [tusk](https://github.com/rliebz/tusk) instalados em sua máquina, para instalar o tusk execute:
 
-Esse é um desafio, não um teste ou uma prova de faculdade, portanto não há uma única resposta certa.
+    $ sudo su 
+    # curl -sL https://git.io/tusk | bash -s -- -b /usr/local/bin latest
+    # exit
 
-Daremos a você alguns requisitos que devem ser cumpridos, e pelos quais você será avaliado, mas deixamos livre a escolha do método de solução.
+### Executar Sistema
 
-O que nós esperamos aprender sobre você com o desafio:
+Com isso, na pasta **Application** do projeto, copie o arquivo **.env.example** para **.env** e altere somente as
+seguintes
+linhas com os dados que você possui:
 
-- Seu estilo de trabalho
-- Como você pensa e resolve problemas
-- Como você se comunica
+* QUALIFICA_AUTHORIZATION
+* QUALIFICA_SERVICE_ID
+* QUALIFICA_APP_USERS_GROUP_ID
 
-O que nós esperamos que você aprenda sobre a Qualifica:
+Em seguida execute o seguinte comando:
 
-- Como nós trabalhamos como um time.
-- Tenha uma visão próxima dos desafios que enfrentamos no dia-a-dia.
+    $ tusk setup
 
-## Próximos passos
+Se tudo ocorrer bem você pode acessar seu sistema em [http://localhost:8080](http://localhost:8080) e o banco de
+dados em [http://localhost:8081](http://localhost:8081)
 
-1. Faça um _fork_ desse repositório para sua conta pessoal.
-2. As instruções do desafio se encontram no arquivo [`CHALLENGE.md`](/CHALLENGE.md).
-2. Resolva o desafio da forma que você julgar mais adequada.
-3. Utilize uma _branch_ nomeada com o formato (`nome-sobrenome`) para o desenvolvimento. E submeta o _pull-request_ para essa mesma _branch_.
+Para mais informações sobre tusk rode:
 
-## Considerações
+    $ tusk -h
 
-- Nós não iremos limitar a sua escolha por ferramentas e bibliotecas. Porém faça escolhas que sejam condizentes com o desafio apresentado. Para que utilizar uma bazuca para matar uma formiga?
-- O tempo sugerido para execução do teste é  de **2 horas e meia**.
-- Tente escrever o melhor código possível para que possamos avaliar o seu _pull-request_ com mais facilidade. E lembre-se: Você vai ter que explicar pessoalmente para nós depois.
+## Executar sem Tusk
 
-## Dúvidas?
+### Dependências
 
-Ficou com alguma dúvida sobre como irá funcionar o processo? Entre em contato que nós te ajudaremos com o processo.
+É preciso ter Composer, MySQL ou MariaDB, PHP 8.0+ e Nodejs(Npm)
 
-**Boa sorte!**
+### Executar Sistema
+
+Com isso, na pasta **Application** do projeto, copie o arquivo **.env.example** para **.env** e altere as seguintes
+linhas com os dados que você possui:
+
+* APP_URL
+* DB_HOST
+* DB_DATABASE
+* DB_USERNAME
+* DB_PASSWORD
+* QUALIFICA_AUTHORIZATION
+* QUALIFICA_SERVICE_ID
+* QUALIFICA_APP_USERS_GROUP_ID
+
+Em seguida execute o seguinte comando:
+
+    $ composer install
+    $ npm install
+    $ npm run dev
+    $ php artisan key:generate
+    $ php artisan migrate:fresh
+
+Se tudo ocorrer bem, você pode acessar o sistema na url configurada no **APP_URL** do arquivo **.env**
+
+## Executar Teste de Lógica
+
+### Dependências
+
+É preciso ter PHP 8.0+
+
+### Executar
+
+Com isso, na pasta principal do projeto, execute o seguinte comando:
+
+    $ php logic.php

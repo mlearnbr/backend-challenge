@@ -11,10 +11,10 @@ tasks:
         type: bool
     run:
       - when:
-          equal: {ignore: true}
+          equal: { ignore: true }
         command: mkdir -p ~/.cache/composer/files ~/.cache/composer/repo && docker run --rm -it -u $(id -u):$(id -g) -v ~/.cache/composer/:/tmp/cache/ -v $PWD:/app composer ${command} --ignore-platform-reqs
       - when:
-          equal: {ignore: false}
+          equal: { ignore: false }
         command: mkdir -p ~/.cache/composer/files ~/.cache/composer/repo && docker run --rm -it -u $(id -u):$(id -g) -v ~/.cache/composer/:/tmp/cache/ -v $PWD:/app composer ${command}
 
   app:
@@ -79,10 +79,10 @@ tasks:
         type: bool
     run:
       - when:
-          equal: {v: true}
+          equal: { v: true }
         command: docker-compose down -v
       - when:
-          equal: {v: false}
+          equal: { v: false }
         command: docker-compose down
 
   setup:
@@ -99,6 +99,10 @@ tasks:
           name: node
           args:
             - npm install
+      - task:
+          name: node
+          args:
+            - npm run dev
       - command: sleep 10
     finally:
       - task:
