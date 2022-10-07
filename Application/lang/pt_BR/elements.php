@@ -1,0 +1,20 @@
+<?php
+return [
+    'dashboard' => 'Página Inicial',
+    'list' => 'Listagem',
+    'show' => 'Detalhes',
+    'form_edit' => 'Formulário de Edição',
+    'form_create' => 'Formulário de Criação',
+    'find_image' => 'Buscar Imagem',
+    'profile' => 'Perfil',
+    'subtitle' => 'Legenda',
+    'generate' => 'Gerar',
+    'period' => 'Período',
+    'filter' => 'Filtrar',
+    'start_date' => 'Data inicial',
+    'end_date' => 'Data final',
+    'all' => 'Todos',
+    'more_info' => 'Mais informações',
+    'login' => 'Login',
+    'options' => 'Opções',
+];

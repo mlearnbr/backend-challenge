@@ -1,0 +1,10 @@
+.logo-mini {
+    width: 57px !important;
+    margin-left: unset !important;
+    margin-right: unset !important;
+}
+
+label.required:after{
+    content: ' *';
+    color: red;
+}

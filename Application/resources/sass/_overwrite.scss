@@ -1,0 +1,17 @@
+.iziToast-wrapper {
+    top: 45px !important;
+}
+
+.custom-file-label:lang(pt-BR)::after {
+    content:"Buscar";
+}
+
+.custom-file-label:lang(pt-BR):empty::before {
+    content:"Selecionar Arquivos";
+}
+
+@media (min-width: 576px) {
+    .register-box {
+        width: 600px !important;
+    }
+}
