@@ -8,6 +8,10 @@ function diferencaDiagonal(matriz = []) {
         return 0;
     }
 
+    if (matriz.length === 1 && Number.isInteger(matriz[0])) {
+        return 0;
+    }
+
     let diagEsq = 0;
     let diagDir = 0;
 
