@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::controller(DashboardController::class)->group(function () {
+    Route::get('/', 'index')->name('index');
+});
+
+Route::controller(UserController::class)->group(function () {
+    Route::get('/users/new', 'new');
+    Route::post('/users/create', 'create');
+    Route::post('/users/upgrade', 'upgrade');
+    Route::post('/users/downgrade', 'downgrade');
 });
